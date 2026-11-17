@@ -1062,3 +1062,42 @@ body {
         width: 100%;
     }
 }
+
+.loading-indicator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    font-size: var(--fs-caption);
+    font-weight: 600;
+}
+
+.loading-indicator[hidden] {
+    display: none;
+}
+
+.spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(27, 107, 80, 0.25);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.js-field-error {
+    margin-top: 6px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-error);
+}

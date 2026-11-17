@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Квитанция по заказу №{{ order.pk }} — ДоггиГо{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="container">
+        <div class="card-box receipt-box">
+            <div class="receipt-head">
+                <div>
+                    <h1 class="page-title">Квитанция по заказу №{{ order.pk }}</h1>
+                    <p class="helper-note">Дата оформления: {{ order.created_at|date:"d.m.Y H:i" }}</p>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="window.print()">Распечатать</button>
+            </div>
+
+            <ul class="params-list">
+                <li>Владелец: <strong>{{ order.dog.owner }}</strong></li>
+                <li>Питомец: <strong>{{ order.dog.name }} ({{ order.dog.breed.name }}, {{ order.dog.weight_kg|floatformat:1 }} кг)</strong></li>
+                <li>Исполнитель (догситтер): <strong>{{ order.slot.sitter }}</strong></li>
+                <li>Услуга: <strong>{{ order.slot.get_service_type_display }}</strong></li>
+                <li>Дата и время: <strong>{{ order.slot.start_at|date:"d.m.Y H:i" }} – {{ order.slot.end_at|date:"H:i" }}</strong></li>
+                <li>Статус заказа: <strong>{{ order.get_status_display }}</strong></li>
+                <li>Итоговая сумма: <strong>{{ order.total_price|floatformat:2 }} &#8381;</strong></li>
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}

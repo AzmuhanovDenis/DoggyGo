@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ sitter }} — Анкета догситтера — ДоггиГо{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="container">
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+            <a href="{% url 'index' %}">Главная</a>
+            <span aria-hidden="true">/</span>
+            <a href="{% url 'catalog' %}">Каталог</a>
+            <span aria-hidden="true">/</span>
+            <span>{{ sitter }}</span>
+        </nav>
+
+        <div class="detail-layout">
+            <article class="card-box sitter-profile-card">
+                <div class="profile-head">
+                    <div class="sitter-avatar sitter-avatar-lg" aria-hidden="true">
+                        {% if sitter.photo %}
+                        <img src="{{ sitter.photo.url }}" alt="{{ sitter }}" width="72" height="72" loading="lazy">
+                        {% else %}
+                        <span>{{ sitter.user.first_name|slice:":1"|default:sitter.user.username|slice:":1" }}{{ sitter.user.last_name|slice:":1" }}</span>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <h1 class="profile-title">{{ sitter }}</h1>
+                        {% if sitter.verification_status == 'approved' %}
+                        <span class="badge badge-success">Паспорт и опыт подтверждены</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <p class="profile-about">{{ sitter.about }}</p>
+
+                <h2 class="block-subtitle">Ограничения и условия</h2>
+                <ul class="conditions-list">
+                    <li>Максимальный вес собаки: {{ sitter.max_weight_kg|floatformat:0 }} кг</li>
+                    <li>Одновременно гуляю только с собаками одного владельца</li>
+                    {% if not sitter.accepts_large_dogs %}
+                    <li>Не работаю с крупными породами (свыше 25 кг)</li>
+                    {% endif %}
+                    {% for behavior in sitter.behaviors.all %}
+                    <li>Опыт работы: {{ behavior.name|lower }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+
+            <aside class="card-box booking-card">
+                <h2 class="block-subtitle">Свободные слоты расписания</h2>
+
+                {% if slots %}
+                <div class="slots-grid" role="group" aria-label="Выбор временного слота">
+                    {% for slot in slots %}
+                        {% if slot.status == 'free' %}
+                        <button
+                            type="button"
+                            class="slot-btn"
+                            data-slot-id="{{ slot.id }}"
+                            data-slot-price="{% if slot.service_type == 'boarding' and sitter.boarding_day_rate %}{{ sitter.boarding_day_rate|floatformat:0 }}{% else %}{{ sitter.walk_hour_rate|floatformat:0 }}{% endif %}"
+                        >
+                            {{ slot.start_at|date:"d.m" }} &bull; {{ slot.start_at|date:"H:i" }} – {{ slot.end_at|date:"H:i" }}
+                        </button>
+                        {% else %}
+                        <button type="button" class="slot-btn is-booked" disabled>
+                            <s>{{ slot.start_at|date:"H:i" }} – {{ slot.end_at|date:"H:i" }} (Занято)</s>
+                        </button>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <form method="post" class="booking-form" id="booking-form">
+                    {% csrf_token %}
+                    {{ form.slot_id }}
+
+                    <div class="field-group">
+                        <label for="{{ form.dog.id_for_label }}" class="field-label">Выберите питомца</label>
+                        {{ form.dog }}
+                        {% if form.dog.errors %}
+                        <div class="field-error">{{ form.dog.errors|join:", " }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="field-group">
+                        <label for="{{ form.address.id_for_label }}" class="field-label">Адрес встречи</label>
+                        {{ form.address }}
+                        {% if form.address.errors %}
+                        <div class="field-error">{{ form.address.errors|join:", " }}</div>
+                        {% endif %}
+                    </div>
+
+                    {% if form.slot_id.errors %}
+                    <div class="field-error">Выберите свободный слот выше перед бронированием.</div>
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
+                        {% if form.fields.dog.queryset.exists %}
+                        <button type="submit" class="btn btn-accent btn-full booking-submit-btn">
+                            Забронировать выгул — <span id="booking-price">{{ sitter.walk_hour_rate|floatformat:0 }}</span> &#8381;
+                        </button>
+                        {% else %}
+                        <p class="helper-note">У вас ещё не добавлен ни один питомец.</p>
+                        <a href="{% url 'my_dogs' %}" class="btn btn-primary btn-full">Добавить собаку в профиле</a>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-accent btn-full">Войдите, чтобы забронировать</a>
+                    {% endif %}
+                </form>
+                {% else %}
+                <p class="helper-note">У догситтера пока нет открытых слотов на ближайшее время.</p>
+                {% endif %}
+            </aside>
+        </div>
+    </div>
+</section>
+{% endblock %}

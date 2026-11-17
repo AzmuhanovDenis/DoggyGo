@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои собаки — Личный кабинет — ДоггиГо{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="container">
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+            <a href="{% url 'index' %}">Личный кабинет</a>
+            <span aria-hidden="true">/</span>
+            <span>Мои собаки</span>
+        </nav>
+        <div class="order-top-header">
+            <h1 class="page-title">Карточки моих питомцев</h1>
+            <a href="#add-dog-form" class="btn btn-primary">+ Добавить собаку</a>
+        </div>
+        {% if dogs %}
+        <div class="two-col-grid dogs-grid">
+            {% for dog in dogs %}
+            <article class="card-box dog-card">
+                <div class="dog-card-top">
+                    <div class="sitter-avatar {% if dog.size_category == 'Крупная' %}avatar-warm{% endif %}" aria-hidden="true">
+                        {% if dog.photo %}
+                        <img src="{{ dog.photo.url }}" alt="{{ dog.name }}" width="56" height="56" loading="lazy">
+                        {% else %}
+                        <span>{{ dog.name|slice:":2"|upper }}</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="dog-head-info">
+                        <div class="sitter-header-row">
+                            <h2 class="sitter-name">{{ dog.name }}</h2>
+                            <span class="badge {% if dog.size_category == 'Крупная' %}badge-warning{% else %}badge-success{% endif %}">
+                                {{ dog.size_category }} порода
+                            </span>
+                        </div>
+                        <p class="sitter-meta">
+                            {{ dog.breed.name }} &bull; {{ dog.age_years }} лет &bull; {{ dog.weight_kg|floatformat:0 }} кг
+                        </p>
+                    </div>
+                </div>
+
+                {% if dog.behaviors.all %}
+                <div class="dog-behaviors-block">
+                    <p class="field-label">Особенности поведения:</p>
+                    <div class="tags-row">
+                        {% for behavior in dog.behaviors.all %}
+                        <span class="badge badge-success">{{ behavior.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="dog-card-actions">
+                    <a href="{% url 'edit_dog' dog.pk %}" class="btn btn-outline">Редактировать</a>
+                    <form method="post" action="{% url 'delete_dog' dog.pk %}" onsubmit="return confirm('Удалить карточку питомца {{ dog.name }}?');">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger-soft">Удалить</button>
+                    </form>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="card-box empty-state">
+            <h2>У вас пока нет добавленных питомцев</h2>
+            <p>Заполните форму ниже, чтобы добавить карточку собаки и оформлять заказы.</p>
+        </div>
+        {% endif %}
+
+        <div class="card-box add-dog-box" id="add-dog-form">
+            <h2 class="block-subtitle">Добавление нового питомца</h2>
+
+            <form method="post" enctype="multipart/form-data" class="dog-form" novalidate>
+                {% csrf_token %}
+
+                <div class="two-col-grid">
+                    <div class="field-group">
+                        <label for="{{ form.name.id_for_label }}" class="field-label">Кличка *</label>
+                        {{ form.name }}
+                        {% if form.name.errors %}<div class="field-error">{{ form.name.errors|join:", " }}</div>{% endif %}
+                    </div>
+
+                    <div class="field-group">
+                        <label for="{{ form.breed.id_for_label }}" class="field-label">Порода *</label>
+                        {{ form.breed }}
+                        {% if form.breed.errors %}<div class="field-error">{{ form.breed.errors|join:", " }}</div>{% endif %}
+                    </div>
+
+                    <div class="field-group">
+                        <label for="{{ form.weight_kg.id_for_label }}" class="field-label">Вес (кг) *</label>
+                        {{ form.weight_kg }}
+                        {% if form.weight_kg.errors %}<div class="field-error">{{ form.weight_kg.errors|join:", " }}</div>{% endif %}
+                    </div>
+
+                    <div class="field-group">
+                        <label for="{{ form.birth_date.id_for_label }}" class="field-label">Дата рождения *</label>
+                        {{ form.birth_date }}
+                        {% if form.birth_date.errors %}<div class="field-error">{{ form.birth_date.errors|join:", " }}</div>{% endif %}
+                    </div>
+
+                    <div class="field-group">
+                        <label for="{{ form.sex.id_for_label }}" class="field-label">Пол *</label>
+                        {{ form.sex }}
+                        {% if form.sex.errors %}<div class="field-error">{{ form.sex.errors|join:", " }}</div>{% endif %}
+                    </div>
+
+                    <div class="field-group">
+                        <label for="{{ form.photo.id_for_label }}" class="field-label">Фото питомца (JPG, PNG, WebP до 5 МБ)</label>
+                        {{ form.photo }}
+                        {% if form.photo.errors %}<div class="field-error">{{ form.photo.errors|join:", " }}</div>{% endif %}
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <span class="field-label">Особенности поведения</span>
+                    <div class="behaviors-checkbox-grid">
+                        {{ form.behaviors }}
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Сохранить карточку</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

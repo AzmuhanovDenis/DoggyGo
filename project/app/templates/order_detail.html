@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Заказ №{{ order.pk }} от {{ order.created_at|date:"d.m.Y" }} — ДоггиГо{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="container">
+        <div class="order-top-header">
+            <div>
+                <h1 class="page-title">Заказ №{{ order.pk }} от {{ order.created_at|date:"d.m.Y" }}</h1>
+                <span class="badge badge-success">
+                    {{ order.get_status_display }}{% if report %} &bull; Отчёт загружен{% endif %}
+                </span>
+            </div>
+
+            <a href="{% url 'order_receipt' order.pk %}" class="btn btn-outline" target="_blank">
+                Печатная форма / Квитанция
+            </a>
+        </div>
+
+        <div class="two-col-grid">
+            <article class="card-box">
+                <h2 class="block-subtitle">Параметры заказа</h2>
+                <ul class="params-list">
+                    <li>Питомец: <strong>{{ order.dog.name }} ({{ order.dog.weight_kg|floatformat:0 }} кг)</strong></li>
+                    <li>Догситтер: <strong>{{ order.slot.sitter }}</strong></li>
+                    <li>Время слота: <strong>{{ order.slot.start_at|date:"H:i" }} – {{ order.slot.end_at|date:"H:i" }}</strong></li>
+                    <li>Адрес: <strong>{{ order.dog.owner.pickup_address }}</strong></li>
+                    {% if order.owner_wishes %}
+                    <li>Пожелания: <strong>{{ order.owner_wishes }}</strong></li>
+                    {% endif %}
+                    <li>Стоимость: <strong>{{ order.total_price|floatformat:0 }} &#8381;</strong></li>
+                </ul>
+            </article>
+
+            <article class="card-box">
+                <h2 class="block-subtitle">Отчёт догситтера о прогулке</h2>
+                {% if report %}
+                    <p class="report-duration">
+                        Фактическая длительность: <strong>{{ report.duration_minutes|floatformat:0 }} минуты</strong>
+                    </p>
+                    {% if report.sitter_comment %}
+                    <p class="report-comment">{{ report.sitter_comment }}</p>
+                    {% endif %}
+                    <p class="report-meta">
+                        Маршрут: {{ report.route }}
+                        {% if report.paws_washed %}&bull; Лапы помыты{% endif %}
+                        {% if report.is_fed %}&bull; Питомец покормлен{% endif %}
+                    </p>
+                    {% if report.photo %}
+                    <div class="report-photo-box">
+                        <img
+                            src="{{ report.photo.url }}"
+                            alt="Фотоотчёт о прогулке с питомцем {{ order.dog.name }}"
+                            width="480"
+                            height="260"
+                            loading="lazy"
+                        >
+                    </div>
+                    {% endif %}
+                {% else %}
+                    <p class="helper-note">Отчёт о прогулке появится здесь после завершения выгула догситтером.</p>
+                {% endif %}
+            </article>
+        </div>
+    </div>
+</section>
+{% endblock %}

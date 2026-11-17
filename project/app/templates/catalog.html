@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+
+{% block title %}Каталог догситтеров и выгульщиков — ДоггиГо{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="container">
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+            <a href="{% url 'index' %}">Главная</a>
+            <span aria-hidden="true">/</span>
+            <span>Каталог догситтеров</span>
+        </nav>
+
+        <h1 class="page-title">Догситтеры и выгульщики</h1>
+
+        <div class="catalog-layout">
+            <aside class="filters-sidebar">
+                <form method="get" action="{% url 'catalog' %}" class="card-box filters-form">
+                    <h2 class="sidebar-title">Фильтры</h2>
+
+                    <div class="field-group">
+                        <label for="filter-q" class="field-label">Поиск по имени</label>
+                        <input
+                            type="text"
+                            id="filter-q"
+                            name="q"
+                            value="{{ q }}"
+                            class="form-control"
+                            placeholder="Например, Алексей"
+                        >
+                    </div>
+
+                    <div class="field-group">
+                        <label for="filter-area" class="field-label">Район города</label>
+                        <select id="filter-area" name="area" class="form-control">
+                            <option value="">Все районы</option>
+                            {% for area in areas %}
+                            <option value="{{ area.id }}" {% if selected_area == area.id|stringformat:"s" %}selected{% endif %}>
+                                {{ area.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="filter-weight" class="field-label">Вес вашей собаки (кг)</label>
+                        <input
+                            type="number"
+                            id="filter-weight"
+                            name="weight"
+                            value="{{ weight }}"
+                            class="form-control"
+                            step="0.5"
+                            min="0.5"
+                            max="150"
+                            placeholder="Например, 25"
+                        >
+                    </div>
+
+                    {% if behaviors %}
+                    <fieldset class="field-group checkbox-fieldset">
+                        <legend class="field-label">Особенности</legend>
+                        <div class="checkbox-stack">
+                            {% for behavior in behaviors %}
+                            <label class="checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    name="behaviors"
+                                    value="{{ behavior.id }}"
+                                    {% if behavior.id in selected_behaviors %}checked{% endif %}
+                                >
+                                <span>{{ behavior.name }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </fieldset>
+                    {% endif %}
+
+                    <input type="hidden" name="sort" value="{{ sort }}">
+
+                    <div class="filter-actions">
+                        <button type="submit" class="btn btn-primary btn-full">Применить</button>
+                        <a href="{% url 'catalog' %}" class="btn btn-outline btn-full">Сбросить фильтры</a>
+                    </div>
+                </form>
+            </aside>
+            <div class="catalog-content">
+                <div class="catalog-toolbar">
+                    <p class="results-counter">
+                        Найдено {{ total_count }} специалиста
+                        {% if page_obj.paginator.num_pages > 1 %}
+                        (страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }})
+                        {% endif %}
+                    </p>
+
+                    <form method="get" action="{% url 'catalog' %}" class="sort-form">
+                        {% if q %}<input type="hidden" name="q" value="{{ q }}">{% endif %}
+                        {% if selected_area %}<input type="hidden" name="area" value="{{ selected_area }}">{% endif %}
+                        {% if weight %}<input type="hidden" name="weight" value="{{ weight }}">{% endif %}
+                        {% for b_id in selected_behaviors %}
+                        <input type="hidden" name="behaviors" value="{{ b_id }}">
+                        {% endfor %}
+
+                        <label for="sort-select" class="visually-hidden">Сортировка</label>
+                        <select id="sort-select" name="sort" class="form-control sort-select" onchange="this.form.submit()">
+                            <option value="rating" {% if sort == 'rating' %}selected{% endif %}>Сортировка: по рейтингу</option>
+                            <option value="price_asc" {% if sort == 'price_asc' %}selected{% endif %}>Сортировка: дешевле</option>
+                            <option value="price_desc" {% if sort == 'price_desc' %}selected{% endif %}>Сортировка: дороже</option>
+                            <option value="experience" {% if sort == 'experience' %}selected{% endif %}>Сортировка: по стажу</option>
+                        </select>
+                    </form>
+                </div>
+
+                {% if page_obj %}
+                <div class="sitters-list">
+                    {% for sitter in page_obj %}
+                    <article class="card-box sitter-card">
+                        <div class="sitter-avatar" aria-hidden="true">
+                            {% if sitter.photo %}
+                            <img src="{{ sitter.photo.url }}" alt="{{ sitter }}" width="64" height="64" loading="lazy">
+                            {% else %}
+                            <span>{{ sitter.user.first_name|slice:":1"|default:sitter.user.username|slice:":1" }}{{ sitter.user.last_name|slice:":1" }}</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="sitter-info">
+                            <div class="sitter-header-row">
+                                <h2 class="sitter-name">{{ sitter }}</h2>
+                                {% if sitter.verification_status == 'approved' %}
+                                <span class="badge badge-success">&#10003; Проверен куратором</span>
+                                {% endif %}
+                            </div>
+
+                            <p class="sitter-meta">
+                                Районы:
+                                {% for area in sitter.areas.all %}
+                                    {{ area.name }}{% if not forloop.last %}, {% endif %}
+                                {% empty %}
+                                    не указаны
+                                {% endfor %}
+                                &bull; До {{ sitter.max_weight_kg|floatformat:0 }} кг
+                                &bull; Рейтинг {{ sitter.avg_rating|default:5.0|floatformat:1 }} ({{ sitter.reviews_count }} отзывов)
+                            </p>
+
+                            <div class="tags-row">
+                                {% if sitter.weight_incompatible %}
+                                    <span class="badge badge-danger">Ограничение: собаки до {{ sitter.max_weight_kg|floatformat:0 }} кг</span>
+                                {% else %}
+                                    {% if sitter.accepts_large_dogs %}
+                                    <span class="badge badge-success">Крупные породы</span>
+                                    {% endif %}
+                                    {% for behavior in sitter.behaviors.all|slice:":3" %}
+                                    <span class="badge badge-success">{{ behavior.name }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="sitter-action">
+                            <div class="sitter-price">{{ sitter.walk_hour_rate|floatformat:0 }} &#8381; / час</div>
+                            {% if sitter.weight_incompatible %}
+                            <button type="button" class="btn btn-disabled" disabled>Не подходит по весу</button>
+                            {% else %}
+                            <a href="{% url 'sitter_detail' sitter.pk %}" class="btn btn-primary">Выбрать слот</a>
+                            {% endif %}
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+
+                {% if page_obj.paginator.num_pages > 1 %}
+                <nav class="pagination-nav" aria-label="Навигация по страницам">
+                    {% if page_obj.has_previous %}
+                    <a href="?{% if query_string %}{{ query_string }}&{% endif %}page={{ page_obj.previous_page_number }}" class="btn btn-outline">Назад</a>
+                    {% endif %}
+
+                    <span class="pagination-current">Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+
+                    {% if page_obj.has_next %}
+                    <a href="?{% if query_string %}{{ query_string }}&{% endif %}page={{ page_obj.next_page_number }}" class="btn btn-outline">Вперёд</a>
+                    {% endif %}
+                </nav>
+                {% endif %}
+
+                {% else %}
+                <div class="card-box empty-state">
+                    <h2>Подходящих специалистов не найдено</h2>
+                    <p>Попробуйте изменить параметры поиска или сбросить фильтры.</p>
+                    <a href="{% url 'catalog' %}" class="btn btn-primary">Сбросить фильтры</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

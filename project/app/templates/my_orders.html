@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои заказы — ДоггиГо{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="container">
+        <h1 class="page-title">Мои заказы</h1>
+        {% if page_obj %}
+        <div class="sitters-list">
+            {% for order in page_obj %}
+            <article class="card-box sitter-card">
+                <div class="sitter-info">
+                    <div class="sitter-header-row">
+                        <h2 class="sitter-name">Заказ №{{ order.pk }} &bull; {{ order.dog.name }}</h2>
+                        <span class="badge badge-success">{{ order.get_status_display }}</span>
+                    </div>
+                    <p class="sitter-meta">
+                        Догситтер: {{ order.slot.sitter }} &bull;
+                        Слот: {{ order.slot.start_at|date:"d.m.Y H:i" }} – {{ order.slot.end_at|date:"H:i" }}
+                    </p>
+                </div>
+                <div class="sitter-action">
+                    <div class="sitter-price">{{ order.total_price|floatformat:0 }} &#8381;</div>
+                    <a href="{% url 'order_detail' order.pk %}" class="btn btn-outline">Открыть детали</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="card-box empty-state">
+            <h2>У вас пока нет заказов</h2>
+            <p>Выберите проверенного специалиста в каталоге и забронируйте удобное время прогулки.</p>
+            <a href="{% url 'catalog' %}" class="btn btn-primary">Перейти в каталог</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Сводные показатели сервиса — ДоггиГо{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="container">
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+            <span>Администрирование</span>
+            <span aria-hidden="true">/</span>
+            <span>Аналитика</span>
+        </nav>
+        <div class="analytics-header">
+            <h1 class="page-title">Сводные показатели сервиса</h1>
+
+            <div class="analytics-controls">
+                <form method="get" action="{% url 'analytics' %}" class="date-filter-form">
+                    <label for="date_from" class="visually-hidden">Дата с</label>
+                    <input type="date" id="date_from" name="date_from" value="{{ date_from }}" class="form-control" onchange="this.form.submit()">
+                    <label for="date_to" class="visually-hidden">Дата по</label>
+                    <input type="date" id="date_to" name="date_to" value="{{ date_to }}" class="form-control" onchange="this.form.submit()">
+                </form>
+                <a href="{% url 'analytics_export_csv' %}" class="btn btn-primary">Экспорт отчёта (CSV)</a>
+            </div>
+        </div>
+
+        <div class="kpi-grid">
+            <article class="card-box kpi-card">
+                <p class="kpi-label">Всего выполнено заказов</p>
+                <p class="kpi-value kpi-green">{{ total_orders }}</p>
+                <span class="badge badge-success">Ожидают проверки: {{ pending_sitters_count }}</span>
+            </article>
+
+            <article class="card-box kpi-card">
+                <p class="kpi-label">Общая сумма заказов</p>
+                <p class="kpi-value">{{ total_revenue|floatformat:0 }} &#8381;</p>
+                <p class="kpi-sub">За выбранный период</p>
+            </article>
+
+            <article class="card-box kpi-card">
+                <p class="kpi-label">Средний чек выгула</p>
+                <p class="kpi-value">{{ avg_check|floatformat:0 }} &#8381;</p>
+                <p class="kpi-sub">Средняя длительность 60 мин</p>
+            </article>
+
+            <article class="card-box kpi-card">
+                <p class="kpi-label">Доля повторных заказов</p>
+                <p class="kpi-value kpi-orange">{{ repeat_share }}%</p>
+                <span class="badge badge-success">Постоянные клиенты</span>
+            </article>
+        </div>
+
+        <div class="two-col-grid">
+            <article class="card-box">
+                <h2 class="block-subtitle">Распределение заказов по районам города</h2>
+                {% if area_stats %}
+                <div class="bars-list">
+                    {% for item in area_stats %}
+                    <div class="bar-item">
+                        <div class="bar-head">
+                            <span>{{ item.name }}</span>
+                            <strong>{{ item.count }} заказов ({{ item.percent }}%)</strong>
+                        </div>
+                        <progress class="area-progress" max="100" value="{{ item.percent }}">{{ item.percent }}%</progress>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="helper-note">Нет данных по заказам за выбранный период.</p>
+                {% endif %}
+            </article>
+
+            <article class="card-box">
+                <h2 class="block-subtitle">Соотношение типов услуг</h2>
+                <div class="service-legend">
+                    <div class="legend-pill legend-green">
+                        &#9679; Разовый выгул &mdash; <strong>{{ walk_pct }}% ({{ walk_count }})</strong>
+                    </div>
+                    <div class="legend-pill legend-yellow">
+                        &#9679; Домашняя передержка &mdash; <strong>{{ boarding_pct }}% ({{ boarding_count }})</strong>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+{% endblock %}

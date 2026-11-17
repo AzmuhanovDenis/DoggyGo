@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Редактирование питомца {{ dog.name }} — ДоггиГо{% endblock %}
+
+{% block content %}
+<section class="page-section">
+    <div class="container">
+        <h1 class="page-title">Редактирование карточки: {{ dog.name }}</h1>
+        <div class="card-box add-dog-box">
+            <form method="post" enctype="multipart/form-data" class="dog-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="filter-actions">
+                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    <a href="{% url 'my_dogs' %}" class="btn btn-outline">Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

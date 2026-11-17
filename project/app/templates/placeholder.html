@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ page_title }} — ДоггиГо{% endblock %}
+
+{% block content %}
+<section class="placeholder-section">
+    <div class="container">
+        <h1>{{ page_title }}</h1>
+        <p class="placeholder-text">Раздел находится в разработке и будет заполнен на следующем этапе (Занятие 8).</p>
+        <a href="{% url 'index' %}" class="btn btn-primary">Вернуться на главную</a>
+    </div>
+</section>
+{% endblock %}

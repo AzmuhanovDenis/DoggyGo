@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}ДоггиГо — Надёжный выгул и передержка для вашей собаки{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-card">
+            <h1 class="hero-title">Надёжный выгул и передержка для вашей собаки</h1>
+            <p class="hero-subtitle">Проверенные догситтеры в вашем районе с учётом веса и характера питомца</p>
+
+            <form action="{% url 'catalog' %}" method="get" class="hero-search-form">
+                <div class="form-group">
+                    <label for="district" class="visually-hidden">Район</label>
+                    <select name="district" id="district" class="form-control">
+                        <option value="central">Район: Центральный</option>
+                        <option value="leninsky">Район: Ленинский</option>
+                        <option value="zavolzhsky">Район: Заволжский</option>
+                        <option value="zsv">Район: Засвияжский</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="service_type" class="visually-hidden">Услуга</label>
+                    <select name="service_type" id="service_type" class="form-control">
+                        <option value="walk">Услуга: Разовый выгул</option>
+                        <option value="boarding">Услуга: Передержка по дням</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="max_weight" class="visually-hidden">Вес собаки</label>
+                    <select name="max_weight" id="max_weight" class="form-control">
+                        <option value="10">Вес собаки: до 10 кг</option>
+                        <option value="15">Вес собаки: до 15 кг</option>
+                        <option value="30" selected>Вес собаки: до 30 кг</option>
+                        <option value="50">Вес собаки: более 30 кг</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-accent hero-submit-btn">Найти ситтера</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="how-it-works-section" id="how-it-works">
+    <div class="container">
+        <h2 class="section-title">Как работает сервис</h2>
+
+        <div class="steps-grid">
+            <article class="step-card">
+                <h3 class="step-title">1. Подбор по параметрам</h3>
+                <p class="step-text">Фильтруйте специалистов по району, весу собаки и опыту со сложным поведением.</p>
+            </article>
+
+            <article class="step-card">
+                <h3 class="step-title">2. Безопасная бронь слота</h3>
+                <p class="step-text">На один часовой слот выгульщик берёт питомцев только одного владельца.</p>
+            </article>
+
+            <article class="step-card">
+                <h3 class="step-title">3. Фотоотчёт о прогулке</h3>
+                <p class="step-text">После выгула вы получите длительность маршрута, фото и комментарий ситтера.</p>
+            </article>
+        </div>
+    </div>
+</section>
+{% endblock %}

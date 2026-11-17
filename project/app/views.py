@@ -13,6 +13,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from .forms import BookingForm, DogForm, RegisterForm
 from .models import Area, Behavior, Dog, Order, Owner, ServiceType, Sitter, Slot
+from django.http import HttpResponse, JsonResponse
+from django.urls import reverse
 
 
 
@@ -412,4 +414,82 @@ def register_view(request):
     else:
         form = RegisterForm()
     return render(request, 'register.html', {'form': form})
+
+def sitter_search_api(request):
+    sitters_qs = (
+        Sitter.objects.filter(verification_status=Sitter.Verification.APPROVED, user__is_active=True)
+        .select_related('user')
+        .prefetch_related('areas', 'behaviors')
+        .annotate(
+            avg_rating=Avg('slots__order__review__rating'),
+            reviews_count=Count('slots__order__review', distinct=True),
+        )
+    )
+
+    q = request.GET.get('q', '').strip()
+    area_id = request.GET.get('area', '').strip()
+    weight_raw = request.GET.get('weight', '').strip()
+    selected_behaviors = request.GET.getlist('behaviors')
+    sort = request.GET.get('sort', 'rating')
+
+    if q:
+        sitters_qs = sitters_qs.filter(
+            Q(user__first_name__icontains=q)
+            | Q(user__last_name__icontains=q)
+            | Q(user__username__icontains=q)
+        )
+
+    if area_id.isdigit():
+        sitters_qs = sitters_qs.filter(areas__id=int(area_id))
+
+    if selected_behaviors:
+        for b_id in [int(b) for b in selected_behaviors if b.isdigit()]:
+            sitters_qs = sitters_qs.filter(behaviors__id=b_id)
+
+    sort_map = {
+        'rating': ['-avg_rating', '-experience_years', 'pk'],
+        'price_asc': ['walk_hour_rate', '-avg_rating', 'pk'],
+        'price_desc': ['-walk_hour_rate', '-avg_rating', 'pk'],
+        'experience': ['-experience_years', '-avg_rating', 'pk'],
+    }
+    sitters_qs = sitters_qs.distinct().order_by(*sort_map.get(sort, sort_map['rating']))
+
+    user_weight = None
+    if weight_raw:
+        try:
+            user_weight = Decimal(weight_raw.replace(',', '.'))
+        except Exception:
+            user_weight = None
+
+    results = []
+    for sitter in sitters_qs[:20]:
+        weight_incompatible = False
+        if user_weight is not None:
+            if user_weight > sitter.max_weight_kg or (user_weight > 25 and not sitter.accepts_large_dogs):
+                weight_incompatible = True
+
+        first_letter = (sitter.user.first_name[:1] or sitter.user.username[:1]).upper()
+        last_letter = sitter.user.last_name[:1].upper()
+
+        results.append({
+            'id': sitter.pk,
+            'name': str(sitter),
+            'initials': f'{first_letter}{last_letter}',
+            'photo_url': sitter.photo.url if sitter.photo else '',
+            'is_approved': sitter.verification_status == Sitter.Verification.APPROVED,
+            'areas': ', '.join(a.name for a in sitter.areas.all()) or 'не указаны',
+            'max_weight': int(sitter.max_weight_kg),
+            'rating': f'{(sitter.avg_rating or 5.0):.1f}',
+            'reviews_count': sitter.reviews_count,
+            'accepts_large_dogs': sitter.accepts_large_dogs,
+            'behaviors': [b.name for b in sitter.behaviors.all()[:3]],
+            'rate': int(sitter.walk_hour_rate),
+            'weight_incompatible': weight_incompatible,
+            'detail_url': reverse('sitter_detail', args=[sitter.pk]),
+        })
+
+    return JsonResponse({
+        'total_count': sitters_qs.count(),
+        'results': results,
+    })
 

@@ -102,7 +102,13 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'phone']
+        fields = {
+            'username': 'Логин', 
+            'first_name': 'Имя', 
+            'last_name': 'Фамилия', 
+            'email': 'Электронная почта', 
+            'phone': 'Телефон'
+        }
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Логин'}),
             'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя'}),

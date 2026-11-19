@@ -263,7 +263,10 @@ class Slot(models.Model):
     def status(self):
         if self.is_blocked:
             return "blocked"
-        return "booked" if Order.objects.filter(slot_id=self.pk).exists() else "free"
+        try:
+            return "booked" if self.order is not None else "free"
+        except Order.DoesNotExist:
+            return "free"
 
     def clean(self):
         super().clean()

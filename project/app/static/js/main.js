@@ -122,6 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (err) {
             console.error(err);
+            if (resultsCounter) {
+                resultsCounter.textContent = 'Не удалось загрузить список специалистов';
+            }
         } finally {
             if (loader) loader.hidden = true;
         }

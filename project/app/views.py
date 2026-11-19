@@ -134,7 +134,10 @@ def sitter_detail(request, pk):
             dog = form.cleaned_data['dog']
             address = form.cleaned_data['address']
 
-            area_coeff = owner.area.distance_coefficient if owner.area else Decimal('1.00')
+            if owner.area and owner.area.distance_coefficient and owner.area.distance_coefficient > 0:
+                area_coeff = owner.area.distance_coefficient
+            else:
+                area_coeff = Decimal('1.00')
             base_rate = sitter.boarding_day_rate if slot.service_type == ServiceType.BOARDING else sitter.walk_hour_rate
             total_price = (base_rate * area_coeff).quantize(Decimal('0.01'))
 

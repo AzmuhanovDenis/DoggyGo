@@ -72,11 +72,10 @@ def sitter_catalog(request):
     sitters_qs = sitters_qs.distinct().order_by(*sort_map.get(sort, sort_map['rating']))
 
     user_weight = None
-    if weight_raw:
-        try:
-            user_weight = Decimal(weight_raw.replace(',', '.'))
-        except Exception:
-            user_weight = None
+    if user_weight is not None and user_weight > 0:
+        if user_weight > sitter.max_weight_kg or (user_weight > 25 and not sitter.accepts_large_dogs):
+            sitter.weight_incompatible = True
+
 
     sitters_list = list(sitters_qs)
     for sitter in sitters_list:

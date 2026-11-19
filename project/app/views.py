@@ -267,7 +267,11 @@ def order_detail(request, pk):
     if not (is_owner or is_sitter or is_staff):
         raise PermissionDenied('Нет доступа к чужому заказу.')
 
-    report = getattr(order, 'report', None)
+    try:
+        report = order.report
+    except Order.report.RelatedObjectDoesNotExist:
+        report = None
+
     return render(request, 'order_detail.html', {'order': order, 'report': report})
 
 

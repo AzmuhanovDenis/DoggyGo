@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
 from pathlib import Path
+import mimetypes
+
+mimetypes.add_type("application/javascript", ".js", True)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +30,7 @@ SECRET_KEY = 'django-insecure-81-04&p!x*qva@!i^jp2v1lqo7x!#&wnm9(5h22$+s!id!n7lh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -39,10 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'app',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -113,6 +118,11 @@ USE_I18N = True
 
 USE_TZ = True
 
+INTERNAL_IPS = [
+    '127.0.0.1',
+    'localhost',
+]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
@@ -137,3 +147,45 @@ MAILERS = {
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'index'
+
+LOG_DIR = BASE_DIR / 'logs'
+LOG_DIR.mkdir(exist_ok=True)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'app_formatter': {
+            'format': '{asctime} [{levelname}] {module}: {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file_app': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': LOG_DIR / 'app.log',
+            'formatter': 'app_formatter',
+            'encoding': 'utf-8',
+        },
+        'file_django': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': LOG_DIR / 'app.log',
+            'formatter': 'app_formatter',
+            'encoding': 'utf-8',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file_django'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'app': {
+            'handlers': ['file_app'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}

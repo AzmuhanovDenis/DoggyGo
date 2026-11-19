@@ -15,7 +15,8 @@ from .forms import BookingForm, DogForm, RegisterForm
 from .models import Area, Behavior, Dog, Order, Owner, ServiceType, Sitter, Slot
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
-
+import logging
+logger = logging.getLogger('app')
 
 
 def index(request):
@@ -124,6 +125,7 @@ def sitter_detail(request, pk):
     form = BookingForm(request.POST or None, owner=owner)
 
     if request.method == 'POST':
+        logger.debug('Вход в обработку формы бронирования (ситтер id=%s, пользователь=%s)', sitter.pk, request.user)
         if not request.user.is_authenticated or owner is None:
             messages.error(request, 'Для бронирования прогулки войдите как владелец собаки.')
             return redirect('login')
@@ -150,9 +152,11 @@ def sitter_detail(request, pk):
                     )
                     order.full_clean()
                     order.save()
+                    logger.info('Успешно создан заказ №%s на сумму %s руб. (владелец=%s)', order.pk, order.total_price, request.user.username)
                 messages.success(request, f'Заказ №{order.pk} успешно оформлен!')
                 return redirect('order_detail', pk=order.pk)
             except ValidationError as exc:
+                logger.error('Ошибка валидации при сохранении заказа (пользователь=%s): %s', request.user.username, exc.messages)
                 for err in exc.messages:
                     messages.error(request, err)
 
@@ -359,6 +363,7 @@ def analytics(request):
 
 
 def analytics_export_csv(request):
+    logger.info('Начат экспорт аналитики в CSV (пользователь=%s)', request.user)
     response = HttpResponse(content_type='text/csv; charset=utf-8')
     response['Content-Disposition'] = 'attachment; filename="doggygo_analytics.csv"'
     response.write('\ufeff')
@@ -377,6 +382,7 @@ def analytics_export_csv(request):
             order.get_status_display(),
             f'{order.total_price:.2f}',
         ])
+    logger.info('Экспорт аналитики в CSV завершён, выгружено записей: %s', orders.count())
     return response
 
 
@@ -389,6 +395,7 @@ def login_view(request):
             login(request, user)
             messages.success(request, f'Добро пожаловать, {user}!')
             return redirect('index')
+        logger.warning('Неудачная попытка входа в систему с логином "%s"', username)
         messages.error(request, 'Неверный логин или пароль.')
     return render(request, 'login.html')
 

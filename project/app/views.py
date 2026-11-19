@@ -199,7 +199,7 @@ def my_dogs(request):
         years = today.year - dog.birth_date.year - ((today.month, today.day) < (dog.birth_date.month, dog.birth_date.day))
         dog.age_years = max(0, years)
 
-    return render(request, 'my_dogs.html', {'dogs': dogs, 'form': form})
+    return render(request, 'my_dogs.html', {'dogs': dogs, 'dogs_count': len(dogs), 'form': form})
 
 
 @login_required

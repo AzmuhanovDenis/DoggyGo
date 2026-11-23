@@ -111,7 +111,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (data.results && data.results.length > 0) {
                 const cardsHtml = data.results.map(renderSitterCard).join('');
-                resultsContainer.innerHTML = `<div class="sitters-list">${cardsHtml}</div>`;
+
+                let paginationHtml = '';
+                if (data.num_pages > 1) {
+                    const prevParams = new URLSearchParams(params);
+                    prevParams.set('page', String(data.page - 1));
+                    const nextParams = new URLSearchParams(params);
+                    nextParams.set('page', String(data.page + 1));
+
+                    const prevLink = data.has_previous
+                        ? `<a href="?${prevParams.toString()}" class="btn btn-outline">Назад</a>`
+                        : '';
+                    const nextLink = data.has_next
+                        ? `<a href="?${nextParams.toString()}" class="btn btn-outline">Вперёд</a>`
+                        : '';
+
+                    paginationHtml = `
+                        <nav class="pagination" aria-label="Пагинация" style="margin-top: 20px; display: flex; gap: 12px; align-items: center;">
+                            ${prevLink}
+                            <span>Страница ${data.page} из ${data.num_pages}</span>
+                            ${nextLink}
+                        </nav>
+                    `;
+                }
+
+                resultsContainer.innerHTML = `<div class="sitters-list">${cardsHtml}</div>${paginationHtml}`;
+
+                const queryString = params.toString();
+                const newUrl = queryString ? `${window.location.pathname}?${queryString}` : window.location.pathname;
+                window.history.replaceState({}, '', newUrl);
             } else {
                 resultsContainer.innerHTML = `
                     <div class="card-box empty-state">

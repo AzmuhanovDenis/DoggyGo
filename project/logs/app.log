@@ -499,3 +499,17 @@ django.core.exceptions.PermissionDenied: Раздел аналитики дос�
 2026-11-23 20:44:34,429 [INFO] log: "GET /admin/app/sitter/ HTTP/1.1" 200 31336
 2026-11-23 20:44:34,453 [INFO] log: "GET /static/admin/img/search.svg HTTP/1.1" 200 607
 2026-11-23 20:44:34,459 [INFO] log: "GET /admin/jsi18n/ HTTP/1.1" 200 13471
+2026-11-23 20:44:47,755 [INFO] log: "GET /admin/app/sitter/2/change/ HTTP/1.1" 200 49000
+2026-11-23 20:44:47,776 [INFO] log: "GET /admin/jsi18n/ HTTP/1.1" 200 13471
+2026-11-23 20:44:47,828 [INFO] log: "GET /static/admin/js/inlines.js HTTP/1.1" 200 17747
+2026-11-23 20:44:47,882 [INFO] log: "GET /static/admin/img/inline-delete.svg HTTP/1.1" 200 651
+2026-11-23 20:45:15,772 [INFO] log: "GET /sitters/ HTTP/1.1" 200 48657
+2026-11-23 20:45:20,745 [INFO] log: "GET /sitters/api/search/?q=&area=&weight=3&sort=rating HTTP/1.1" 200 8519
+2026-11-23 20:45:21,577 [INFO] log: "GET /sitters/api/search/?q=&area=&weight=35&sort=rating HTTP/1.1" 200 33
+2026-11-23 20:45:33,407 [INFO] log: "GET /sitters/api/search/?q=&area=&weight=35&behaviors=4&sort=rating HTTP/1.1" 200 33
+2026-11-23 20:45:34,455 [INFO] log: "GET /sitters/api/search/?q=&area=&weight=35&behaviors=4&behaviors=3&sort=rating HTTP/1.1" 200 33
+2026-11-23 20:45:34,807 [INFO] log: "GET /sitters/api/search/?q=&area=&weight=35&behaviors=4&sort=rating HTTP/1.1" 200 33
+2026-11-23 20:45:35,544 [INFO] log: "GET /sitters/api/search/?q=&area=&weight=35&sort=rating HTTP/1.1" 200 33
+2026-11-23 20:45:36,375 [INFO] log: "GET /sitters/?q=&area=&weight=35&sort=rating HTTP/1.1" 200 8976
+2026-11-23 20:46:44,640 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:46:46,365 [INFO] autoreload: Watching for file changes with StatReloader

@@ -659,7 +659,11 @@ def sitter_search_api(request):
         })
 
     return JsonResponse({
-        'total_count': sitters_qs.count(),
+        'total_count': paginator.count,
+        'page': page_obj.number,
+        'num_pages': paginator.num_pages,
+        'has_previous': page_obj.has_previous(),
+        'has_next': page_obj.has_next(),
         'results': results,
     })
 

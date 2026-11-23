@@ -34,8 +34,8 @@ def sitter_catalog(request):
         .select_related('user')
         .prefetch_related('areas', 'behaviors')
         .annotate(
-            avg_rating=Avg('slots__order__review__rating'),
-            reviews_count=Count('slots__order__review', distinct=True),
+            avg_rating=Avg('slots__orders__review__rating'),
+            reviews_count=Count('slots__orders__review', distinct=True),
         )
     )
 
@@ -113,13 +113,17 @@ def sitter_detail(request, pk):
         Sitter.objects.select_related('user')
         .prefetch_related('areas', 'behaviors')
         .annotate(
-            avg_rating=Avg('slots__order__review__rating'),
-            reviews_count=Count('slots__order__review', distinct=True),
+            avg_rating=Avg('slots__orders__review__rating'),
+            reviews_count=Count('slots__orders__review', distinct=True),
         ),
         pk=pk,
     )
 
-    slots = Slot.objects.filter(sitter=sitter, start_at__gte=timezone.now()).select_related('order').order_by('start_at')[:12]
+    slots = (
+        Slot.objects.filter(sitter=sitter, start_at__gte=timezone.now())
+        .prefetch_related('orders')
+        .order_by('start_at')[:12]
+    )
 
     owner = getattr(request.user, 'owner_profile', None) if request.user.is_authenticated else None
     form = BookingForm(request.POST or None, owner=owner)
@@ -293,7 +297,6 @@ def my_orders(request):
 
 
 @login_required
-@login_required
 def order_detail(request, pk):
     order = get_object_or_404(
         Order.objects.select_related('dog', 'dog__owner__user', 'slot', 'slot__sitter__user'),
@@ -315,6 +318,11 @@ def order_detail(request, pk):
 
     if request.method == 'POST':
         action = request.POST.get('action')
+        if action == 'cancel_order' and is_owner and order.status in (Order.Status.PENDING, Order.Status.CONFIRMED):
+            order.status = Order.Status.CANCELLED
+            order.save(update_fields=['status'])
+            messages.success(request, 'Заказ отменён, временной слот снова свободен для бронирования.')
+            return redirect('order_detail', pk=order.pk)
         if action == 'submit_report' and is_sitter and report is None:
             report_form = WalkReportForm(request.POST, request.FILES)
             if report_form.is_valid():
@@ -496,8 +504,8 @@ def sitter_search_api(request):
         .select_related('user')
         .prefetch_related('areas', 'behaviors')
         .annotate(
-            avg_rating=Avg('slots__order__review__rating'),
-            reviews_count=Count('slots__order__review', distinct=True),
+            avg_rating=Avg('slots__orders__review__rating'),
+            reviews_count=Count('slots__orders__review', distinct=True),
         )
     )
 

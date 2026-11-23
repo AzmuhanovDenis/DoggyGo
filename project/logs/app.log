@@ -72,3 +72,324 @@
 2026-11-23 20:06:23,607 [WARNING] log: "GET /media/reports/Walk1.jpg HTTP/1.1" 404 179
 2026-11-23 20:06:23,620 [WARNING] log: Not Found: /favicon.ico
 2026-11-23 20:06:23,621 [WARNING] log: "GET /favicon.ico HTTP/1.1" 404 179
+2026-11-23 20:14:41,960 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:14:44,462 [INFO] log: "GET / HTTP/1.1" 200 6251
+2026-11-23 20:14:45,555 [INFO] log: "GET /profile/ HTTP/1.1" 200 9040
+2026-11-23 20:14:46,223 [INFO] log: "GET / HTTP/1.1" 200 6251
+2026-11-23 20:15:14,657 [INFO] log: "GET / HTTP/1.1" 200 6346
+2026-11-23 20:15:21,196 [INFO] log: "GET /logout/ HTTP/1.1" 302 0
+2026-11-23 20:15:21,207 [INFO] log: "GET / HTTP/1.1" 200 6625
+2026-11-23 20:15:24,092 [INFO] log: "GET /login/ HTTP/1.1" 200 3753
+2026-11-23 20:15:36,920 [INFO] log: "POST /login/ HTTP/1.1" 302 0
+2026-11-23 20:15:36,934 [INFO] log: "GET / HTTP/1.1" 200 6789
+2026-11-23 20:15:45,329 [INFO] log: "GET /profile/orders/ HTTP/1.1" 200 8174
+2026-11-23 20:16:03,328 [INFO] log: "GET /profile/orders/16/ HTTP/1.1" 200 5312
+2026-11-23 20:16:11,821 [INFO] log: "POST /profile/orders/16/ HTTP/1.1" 302 0
+2026-11-23 20:16:11,840 [INFO] log: "GET /profile/orders/16/ HTTP/1.1" 200 4995
+2026-11-23 20:16:28,498 [ERROR] log: Internal Server Error: /sitters/
+Traceback (most recent call last):
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py", line 36, in sitter_catalog
+    .annotate(
+     ^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\query.py", line 1867, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\query.py", line 1919, in _annotate
+    clone.query.add_annotation(
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1242, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\aggregates.py", line 125, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\expressions.py", line 301, in resolve_expression
+    expr.resolve_expression(query, allow_joins, reuse, summarize, for_save)
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\expressions.py", line 908, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 2107, in resolve_ref
+    transform = join_info.transform_function(targets[0], final_alias)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1963, in transform
+    wrapped = previous(field, alias)
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1963, in transform
+    wrapped = previous(field, alias)
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1964, in transform
+    return self.try_transform(wrapped, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1482, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'order' for BigAutoField or join on the field not permitted.
+2026-11-23 20:16:28,590 [ERROR] log: "GET /sitters/ HTTP/1.1" 500 145
+2026-11-23 20:16:30,473 [ERROR] log: Internal Server Error: /sitters/
+Traceback (most recent call last):
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py", line 36, in sitter_catalog
+    .annotate(
+     ^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\query.py", line 1867, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\query.py", line 1919, in _annotate
+    clone.query.add_annotation(
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1242, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\aggregates.py", line 125, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\expressions.py", line 301, in resolve_expression
+    expr.resolve_expression(query, allow_joins, reuse, summarize, for_save)
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\expressions.py", line 908, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 2107, in resolve_ref
+    transform = join_info.transform_function(targets[0], final_alias)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1963, in transform
+    wrapped = previous(field, alias)
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1963, in transform
+    wrapped = previous(field, alias)
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1964, in transform
+    return self.try_transform(wrapped, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1482, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'order' for BigAutoField or join on the field not permitted.
+2026-11-23 20:16:30,476 [ERROR] log: "GET /sitters/ HTTP/1.1" 500 145
+2026-11-23 20:16:30,909 [ERROR] log: Internal Server Error: /sitters/
+Traceback (most recent call last):
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py", line 36, in sitter_catalog
+    .annotate(
+     ^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\query.py", line 1867, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\query.py", line 1919, in _annotate
+    clone.query.add_annotation(
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1242, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\aggregates.py", line 125, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\expressions.py", line 301, in resolve_expression
+    expr.resolve_expression(query, allow_joins, reuse, summarize, for_save)
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\expressions.py", line 908, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 2107, in resolve_ref
+    transform = join_info.transform_function(targets[0], final_alias)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1963, in transform
+    wrapped = previous(field, alias)
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1963, in transform
+    wrapped = previous(field, alias)
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1964, in transform
+    return self.try_transform(wrapped, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1482, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'order' for BigAutoField or join on the field not permitted.
+2026-11-23 20:16:30,911 [ERROR] log: "GET /sitters/ HTTP/1.1" 500 145
+2026-11-23 20:16:31,079 [ERROR] log: Internal Server Error: /sitters/
+Traceback (most recent call last):
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py", line 36, in sitter_catalog
+    .annotate(
+     ^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\query.py", line 1867, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\query.py", line 1919, in _annotate
+    clone.query.add_annotation(
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1242, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\aggregates.py", line 125, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\expressions.py", line 301, in resolve_expression
+    expr.resolve_expression(query, allow_joins, reuse, summarize, for_save)
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\expressions.py", line 908, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 2107, in resolve_ref
+    transform = join_info.transform_function(targets[0], final_alias)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1963, in transform
+    wrapped = previous(field, alias)
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1963, in transform
+    wrapped = previous(field, alias)
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1964, in transform
+    return self.try_transform(wrapped, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1482, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'order' for BigAutoField or join on the field not permitted.
+2026-11-23 20:16:31,082 [ERROR] log: "GET /sitters/ HTTP/1.1" 500 145
+2026-11-23 20:16:31,228 [ERROR] log: Internal Server Error: /sitters/
+Traceback (most recent call last):
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py", line 36, in sitter_catalog
+    .annotate(
+     ^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\query.py", line 1867, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\query.py", line 1919, in _annotate
+    clone.query.add_annotation(
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1242, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\aggregates.py", line 125, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\expressions.py", line 301, in resolve_expression
+    expr.resolve_expression(query, allow_joins, reuse, summarize, for_save)
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\expressions.py", line 908, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 2107, in resolve_ref
+    transform = join_info.transform_function(targets[0], final_alias)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1963, in transform
+    wrapped = previous(field, alias)
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1963, in transform
+    wrapped = previous(field, alias)
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1964, in transform
+    return self.try_transform(wrapped, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1482, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'order' for BigAutoField or join on the field not permitted.
+2026-11-23 20:16:31,231 [ERROR] log: "GET /sitters/ HTTP/1.1" 500 145
+2026-11-23 20:16:31,393 [ERROR] log: Internal Server Error: /sitters/
+Traceback (most recent call last):
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py", line 36, in sitter_catalog
+    .annotate(
+     ^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\query.py", line 1867, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\query.py", line 1919, in _annotate
+    clone.query.add_annotation(
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1242, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\aggregates.py", line 125, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\expressions.py", line 301, in resolve_expression
+    expr.resolve_expression(query, allow_joins, reuse, summarize, for_save)
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\expressions.py", line 908, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 2107, in resolve_ref
+    transform = join_info.transform_function(targets[0], final_alias)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1963, in transform
+    wrapped = previous(field, alias)
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1963, in transform
+    wrapped = previous(field, alias)
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1964, in transform
+    return self.try_transform(wrapped, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1482, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'order' for BigAutoField or join on the field not permitted.
+2026-11-23 20:16:31,396 [ERROR] log: "GET /sitters/ HTTP/1.1" 500 145
+2026-11-23 20:16:32,813 [INFO] log: "GET / HTTP/1.1" 200 6545
+2026-11-23 20:16:33,932 [INFO] log: "GET /profile/orders/ HTTP/1.1" 200 8147
+2026-11-23 20:16:34,678 [ERROR] log: Internal Server Error: /sitters/
+Traceback (most recent call last):
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py", line 36, in sitter_catalog
+    .annotate(
+     ^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\query.py", line 1867, in annotate
+    return self._annotate(args, kwargs, select=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\query.py", line 1919, in _annotate
+    clone.query.add_annotation(
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1242, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\aggregates.py", line 125, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\expressions.py", line 301, in resolve_expression
+    expr.resolve_expression(query, allow_joins, reuse, summarize, for_save)
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\expressions.py", line 908, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 2107, in resolve_ref
+    transform = join_info.transform_function(targets[0], final_alias)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1963, in transform
+    wrapped = previous(field, alias)
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1963, in transform
+    wrapped = previous(field, alias)
+              ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1964, in transform
+    return self.try_transform(wrapped, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\db\models\sql\query.py", line 1482, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'order' for BigAutoField or join on the field not permitted.
+2026-11-23 20:16:34,681 [ERROR] log: "GET /sitters/ HTTP/1.1" 500 145
+2026-11-23 20:16:51,289 [WARNING] log: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2026-11-23 20:16:51,290 [WARNING] log: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 179
+2026-11-23 20:18:00,793 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:18:02,603 [INFO] autoreload: Watching for file changes with StatReloader

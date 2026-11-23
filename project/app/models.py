@@ -263,10 +263,9 @@ class Slot(models.Model):
     def status(self):
         if self.is_blocked:
             return "blocked"
-        try:
-            return "booked" if self.order is not None else "free"
-        except Order.DoesNotExist:
-            return "free"
+        has_active_order = self.orders.exclude(status=Order.Status.CANCELLED).exists()
+        return "booked" if has_active_order else "free"
+
 
     def clean(self):
         super().clean()
@@ -292,7 +291,7 @@ class Order(models.Model):
         CANCELLED = "cancelled", "Отменён"
 
     dog = models.ForeignKey(Dog, verbose_name="Собака", on_delete=models.PROTECT, related_name="orders")
-    slot = models.OneToOneField(Slot, verbose_name="Забронированный слот", on_delete=models.PROTECT, related_name="order")
+    slot = models.ForeignKey(Slot, verbose_name="Забронированный слот", on_delete=models.PROTECT, related_name="orders")
     total_price = models.DecimalField("Итоговая стоимость", max_digits=12, decimal_places=2, validators=[MinValueValidator(Decimal("0.01"))])
     status = models.CharField("Статус", max_length=12, choices=Status.choices, default=Status.PENDING)
     owner_wishes = models.TextField("Пожелания владельца", blank=True)
@@ -339,7 +338,7 @@ class Order(models.Model):
             errors.append("Догситтер не обслуживает район владельца.")
         if dog.behaviors.exclude(pk__in=sitter.behaviors.values_list("pk", flat=True)).exists():
             errors.append("Не хватает компетенций по поведению собаки.")
-        if Order.objects.filter(slot_id=self.slot_id).exists():
+        if Order.objects.filter(slot_id=self.slot_id).exclude(status=Order.Status.CANCELLED).exists():
             errors.append("Слот уже использован в заказе.")
         if errors:
             raise ValidationError(errors)

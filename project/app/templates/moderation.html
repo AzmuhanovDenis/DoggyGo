@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}Модерация анкет догситтеров — DoggyGo{% endblock %}
+
+{% block content %}
+<section class="container">
+    <h1>Модерация анкет догситтеров</h1>
+    <p>Проверка заявок специалистов, смена статуса верификации и добавление комментария куратора.</p>
+
+    {% if sitters %}
+        <div class="sitters-list">
+            {% for sitter in sitters %}
+                <article class="card-box">
+                    <div class="sitter-header-row">
+                        <h2>{{ sitter }} ({{ sitter.user.email }})</h2>
+                        {% if sitter.verification_status == 'approved' %}
+                            <span class="badge badge-success">Одобрена</span>
+                        {% elif sitter.verification_status == 'rejected' %}
+                            <span class="badge badge-danger">Отклонена</span>
+                        {% else %}
+                            <span class="badge">На проверке (pending)</span>
+                        {% endif %}
+                    </div>
+
+                    <p>
+                        <strong>Стаж:</strong> {{ sitter.experience_years }} лет &bull;
+                        <strong>Макс. вес:</strong> {{ sitter.max_weight_kg }} кг &bull;
+                        <strong>Ставка:</strong> {{ sitter.walk_hour_rate }} &#8381;/ч
+                    </p>
+                    <p><strong>О себе:</strong> {{ sitter.about }}</p>
+                    <p>
+                        <strong>Районы выезда:</strong>
+                        {% for area in sitter.areas.all %}
+                            {{ area.name }}{% if not forloop.last %}, {% endif %}
+                        {% empty %}
+                            не указаны
+                        {% endfor %}
+                    </p>
+
+                    <form method="post" style="margin-top: 12px;">
+                        {% csrf_token %}
+                        <input type="hidden" name="sitter_id" value="{{ sitter.pk }}">
+
+                        <div class="form-group">
+                            <label for="status-{{ sitter.pk }}">Статус проверки:</label>
+                            <select name="verification_status" id="status-{{ sitter.pk }}" class="form-control">
+                                <option value="pending" {% if sitter.verification_status == 'pending' %}selected{% endif %}>На проверке (pending)</option>
+                                <option value="approved" {% if sitter.verification_status == 'approved' %}selected{% endif %}>Одобрена (approved)</option>
+                                <option value="rejected" {% if sitter.verification_status == 'rejected' %}selected{% endif %}>Отклонена (rejected)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 8px;">
+                            <label for="comment-{{ sitter.pk }}">Комментарий куратора:</label>
+                            <textarea name="curator_comment" id="comment-{{ sitter.pk }}" class="form-control" rows="2" placeholder="Укажите причину отклонения или заметку о проверке">{{ sitter.curator_comment }}</textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="margin-top: 8px;">Сохранить решение</button>
+                    </form>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="card-box empty-state">
+            <h2>Анкет для модерации пока нет</h2>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

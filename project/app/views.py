@@ -506,3 +506,19 @@ def sitter_search_api(request):
         'results': results,
     })
 
+
+@login_required
+def moderation_list(request):
+    if not (request.user.is_staff or request.user.role in ('curator', 'admin')):
+        raise PermissionDenied('Доступ разрешён только куратору или администратору.')
+    if request.method == 'POST':
+        sitter = get_object_or_404(Sitter, pk=request.POST.get('sitter_id'))
+        new_status = request.POST.get('verification_status')
+        if new_status in (Sitter.Verification.APPROVED, Sitter.Verification.REJECTED, Sitter.Verification.PENDING):
+            sitter.verification_status = new_status
+            sitter.curator_comment = request.POST.get('curator_comment', '').strip()
+            sitter.save(update_fields=['verification_status', 'curator_comment'])
+            messages.success(request, f'Статус анкеты {sitter} обновлён.')
+        return redirect('moderation_list')
+    sitters = Sitter.objects.select_related('user').prefetch_related('areas').order_by('verification_status', 'user__username')
+    return render(request, 'moderation.html', {'sitters': sitters})

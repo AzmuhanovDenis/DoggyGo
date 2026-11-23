@@ -44,11 +44,24 @@ class SitterAdmin(admin.ModelAdmin):
     search_fields = ('user__username', 'user__first_name', 'user__last_name')
     inlines = [SitterAreaInline, SitterBehaviorInline]
 
+    def _is_curator(self, request):
+            return request.user.is_authenticated and (
+                request.user.is_superuser or getattr(request.user, 'role', '') in ('curator', 'admin')
+            )
+    
+    def has_module_permission(self, request):
+        return self._is_curator(request)
+    
+    def has_view_permission(self, request, obj=None):
+        return self._is_curator(request)
+    
+    def has_change_permission(self, request, obj=None):
+        return self._is_curator(request)
+
 
 class DogBehaviorInline(admin.TabularInline):
     model = DogBehavior
     extra = 1
-
 
 @admin.register(Dog)
 class DogAdmin(admin.ModelAdmin):

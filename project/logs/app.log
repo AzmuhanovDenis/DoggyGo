@@ -1,0 +1,48 @@
+2026-11-23 19:49:44,321 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 19:49:46,724 [INFO] log: "GET /logout/ HTTP/1.1" 302 0
+2026-11-23 19:49:46,782 [INFO] log: "GET / HTTP/1.1" 200 6625
+2026-11-23 19:49:47,753 [INFO] log: "GET /login/ HTTP/1.1" 200 3753
+2026-11-23 19:49:55,788 [INFO] log: "POST /login/ HTTP/1.1" 302 0
+2026-11-23 19:49:55,803 [INFO] log: "GET / HTTP/1.1" 200 6781
+2026-11-23 19:49:59,381 [INFO] log: "GET /moderation/ HTTP/1.1" 200 67260
+2026-11-23 19:50:40,543 [INFO] log: "GET / HTTP/1.1" 200 6545
+2026-11-23 19:50:58,855 [INFO] log: "GET /moderation/ HTTP/1.1" 200 67277
+2026-11-23 19:51:20,445 [INFO] log: "POST /moderation/ HTTP/1.1" 302 0
+2026-11-23 19:51:20,471 [INFO] log: "GET /moderation/ HTTP/1.1" 200 67542
+2026-11-23 19:51:24,621 [INFO] log: "GET /moderation/ HTTP/1.1" 200 67288
+2026-11-23 19:51:29,354 [INFO] log: "POST /moderation/ HTTP/1.1" 302 0
+2026-11-23 19:51:29,384 [INFO] log: "GET /moderation/ HTTP/1.1" 200 67554
+2026-11-23 19:51:31,538 [INFO] log: "GET /moderation/ HTTP/1.1" 200 67300
+2026-11-23 19:51:39,444 [INFO] log: "GET /admin/ HTTP/1.1" 200 5078
+2026-11-23 19:52:10,288 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\admin.py changed, reloading.
+2026-11-23 19:52:12,112 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 19:52:16,744 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\admin.py changed, reloading.
+2026-11-23 19:52:18,441 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 19:52:20,685 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\admin.py changed, reloading.
+2026-11-23 19:52:22,593 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 19:52:36,321 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\admin.py changed, reloading.
+2026-11-23 19:52:37,914 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 19:52:44,179 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\admin.py changed, reloading.
+2026-11-23 19:52:45,937 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 19:52:49,130 [INFO] log: "GET /admin/ HTTP/1.1" 200 5927
+2026-11-23 19:52:49,147 [INFO] log: "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 978
+2026-11-23 19:52:51,619 [INFO] log: "GET /admin/app/sitter/ HTTP/1.1" 200 18512
+2026-11-23 19:52:51,632 [INFO] log: "GET /static/admin/css/changelists.css HTTP/1.1" 200 6216
+2026-11-23 19:52:51,643 [INFO] log: "GET /static/admin/js/core.js HTTP/1.1" 200 6432
+2026-11-23 19:52:51,643 [INFO] log: "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 349
+2026-11-23 19:52:51,682 [INFO] log: "GET /static/admin/js/urlify.js HTTP/1.1" 200 9985
+2026-11-23 19:52:51,685 [INFO] log: "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1575
+2026-11-23 19:52:51,687 [INFO] log: "GET /static/admin/js/actions.js HTTP/1.1" 200 8999
+2026-11-23 19:52:51,688 [INFO] log: "GET /static/admin/img/search.svg HTTP/1.1" 200 607
+2026-11-23 19:52:51,695 [INFO] log: "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 11452
+2026-11-23 19:52:51,743 [INFO] log: "GET /static/admin/js/vendor/jquery/jquery.min.js HTTP/1.1" 200 87533
+2026-11-23 19:52:51,752 [INFO] log: "GET /static/admin/js/filters.js HTTP/1.1" 200 1099
+2026-11-23 19:52:52,139 [INFO] log: "GET /static/admin/js/vendor/xregexp/xregexp.min.js HTTP/1.1" 200 163184
+2026-11-23 19:52:52,160 [INFO] log: "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 928
+2026-11-23 19:53:00,734 [INFO] log: "GET /admin/app/sitter/10/change/ HTTP/1.1" 200 16853
+2026-11-23 19:53:00,751 [INFO] log: "GET /static/admin/css/forms.css HTTP/1.1" 200 7951
+2026-11-23 19:53:00,751 [INFO] log: "GET /static/admin/css/widgets.css HTTP/1.1" 200 12094
+2026-11-23 19:53:00,753 [INFO] log: "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 726
+2026-11-23 19:53:00,761 [INFO] log: "GET /admin/jsi18n/ HTTP/1.1" 200 13471
+2026-11-23 19:53:00,784 [INFO] log: "GET /static/admin/js/change_form.js HTTP/1.1" 200 677
+2026-11-23 19:53:05,439 [INFO] log: "GET / HTTP/1.1" 200 6545

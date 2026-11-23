@@ -25,6 +25,7 @@
                         {% if user.role == 'curator' or user.role == 'admin' or user.is_staff %}
                             <li><a href="{% url 'catalog' %}" class="nav-link">Каталог</a></li>
                             <li><a href="{% url 'analytics' %}" class="nav-link">Сводные показатели</a></li>
+                            <li><a href="{% url 'moderation_list' %}" class="nav-link">Модерация</a></li>
                             <li><span class="user-role-badge">Куратор сервиса</span></li>
                             <li><a href="{% url 'logout' %}" class="btn btn-outline">Выйти</a></li>
                         {% else %}

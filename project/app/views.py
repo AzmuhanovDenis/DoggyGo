@@ -86,7 +86,7 @@ def sitter_catalog(request):
                 sitter.weight_incompatible = True
 
     paginator = Paginator(sitters_list, 20)
-    page_number = request.GET.get('page')
+    page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
 
     query_params = request.GET.copy()
@@ -544,6 +544,9 @@ def sitter_search_api(request):
         except Exception:
             user_weight = None
 
+    paginator = Paginator(sitters_qs, 20)
+    page_obj = paginator.get_page(request.GET.get('page', 1))
+    
     results = []
     for sitter in sitters_qs[:20]:
         weight_incompatible = False

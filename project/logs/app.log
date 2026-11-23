@@ -393,3 +393,30 @@ django.core.exceptions.FieldError: Unsupported lookup 'order' for BigAutoField o
 2026-11-23 20:16:51,290 [WARNING] log: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 179
 2026-11-23 20:18:00,793 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
 2026-11-23 20:18:02,603 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:18:52,413 [INFO] log: "GET /sitters/ HTTP/1.1" 200 48746
+2026-11-23 20:18:52,464 [WARNING] log: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2026-11-23 20:18:52,465 [WARNING] log: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 179
+2026-11-23 20:18:56,138 [INFO] log: "GET /sitters/1/ HTTP/1.1" 200 7697
+2026-11-23 20:19:00,276 [INFO] log: "GET / HTTP/1.1" 200 6545
+2026-11-23 20:22:10,642 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:22:12,731 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:22:40,014 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:22:41,818 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:22:44,217 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:22:45,792 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:23:36,372 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:23:38,222 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:23:40,018 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:23:41,573 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:23:47,629 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:23:49,414 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:23:52,969 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:23:54,873 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:23:57,251 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:23:58,981 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:24:41,551 [INFO] log: "GET /sitters/ HTTP/1.1" 200 48746
+2026-11-23 20:24:47,752 [INFO] log: "GET /sitters/api/search/?q=&area=4&weight=&sort=rating HTTP/1.1" 200 8519
+2026-11-23 20:25:07,485 [INFO] log: "GET /sitters/?q=&area=4&weight=&sort=rating HTTP/1.1" 200 48796
+2026-11-23 20:25:10,140 [INFO] log: "GET /sitters/?q=&area=4&weight=&sort=rating&page=2 HTTP/1.1" 200 15216
+2026-11-23 20:25:13,455 [INFO] log: "GET /sitters/?q=&area=4&weight=&sort=rating&page=1 HTTP/1.1" 200 48796
+2026-11-23 20:25:24,025 [INFO] autoreload: Watching for file changes with StatReloader

@@ -28,7 +28,10 @@
                             <li><a href="{% url 'moderation_list' %}" class="nav-link">Модерация</a></li>
                             <li><span class="user-role-badge">Куратор сервиса</span></li>
                             <li><a href="{% url 'logout' %}" class="btn btn-outline">Выйти</a></li>
-                        {% else %}
+                        {% elif user.role == 'sitter' %}
+                            <a href="{% url 'profile_dashboard' %}" class="nav-link">Кабинет ситтера</a>
+                            <li><span class="user-role-badge">{{ user.first_name|default:user.username }} ({{ user.get_role_display }})</span></li>
+                        {% elif user.role == 'owner' %}
                             <li><a href="{% url 'catalog' %}" class="nav-link">Каталог</a></li>
                             <li><a href="{% url 'my_orders' %}" class="nav-link">Мои заказы</a></li>
                             <li><a href="{% url 'my_dogs' %}" class="nav-link">Мои собаки</a></li>

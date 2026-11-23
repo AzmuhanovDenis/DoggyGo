@@ -22,6 +22,9 @@
                 <li>Дата и время: <strong>{{ order.slot.start_at|date:"d.m.Y H:i" }} – {{ order.slot.end_at|date:"H:i" }}</strong></li>
                 <li>Статус заказа: <strong>{{ order.get_status_display }}</strong></li>
                 <li>Итоговая сумма: <strong>{{ order.total_price|floatformat:2 }} &#8381;</strong></li>
+                {% if order.report %}
+                    <li><strong>Маршрут прогулки:</strong> {{ order.report.route }}</li>
+                {% endif %}
             </ul>
         </div>
     </div>

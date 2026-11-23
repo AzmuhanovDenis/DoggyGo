@@ -11,7 +11,7 @@ from django.db.models import Avg, Count, Q, Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
-from .forms import BookingForm, DogForm, RegisterForm
+from .forms import BookingForm, DogForm, RegisterForm, SlotForm, WalkReportForm
 from .models import Area, Behavior, Dog, Order, Owner, ServiceType, Sitter, Slot
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
@@ -168,6 +168,41 @@ def sitter_detail(request, pk):
     }
     return render(request, 'sitter_detail.html', context)
 
+
+@login_required
+def profile_dashboard(request):
+    if request.user.role == 'curator':
+        return redirect('moderation_list')
+    if request.user.role == 'sitter':
+        sitter = get_object_or_404(Sitter, user=request.user)
+        slot_form = SlotForm(request.POST or None)
+        if request.method == 'POST' and slot_form.is_valid():
+            slot = slot_form.save(commit=False)
+            slot.sitter = sitter
+            try:
+                slot.full_clean()
+                slot.save()
+                messages.success(request, 'Новый слот добавлен в расписание.')
+                return redirect('profile_dashboard')
+            except ValidationError as exc:
+                for err in exc.messages:
+                    messages.error(request, err)
+
+        slots = Slot.objects.filter(sitter=sitter).order_by('-start_at')
+        orders = (
+            Order.objects.filter(slot__sitter=sitter)
+            .select_related('dog', 'slot')
+            .order_by('-created_at')
+        )
+        return render(request, 'sitter_profile.html', {
+            'sitter': sitter,
+            'slots': slots,
+            'orders': orders,
+            'slot_form': slot_form,
+        })
+    return redirect('my_dogs')
+
+
 @login_required
 def my_dogs(request):
     owner = getattr(request.user, 'owner_profile', None)
@@ -258,6 +293,7 @@ def my_orders(request):
 
 
 @login_required
+@login_required
 def order_detail(request, pk):
     order = get_object_or_404(
         Order.objects.select_related('dog', 'dog__owner__user', 'slot', 'slot__sitter__user'),
@@ -275,7 +311,33 @@ def order_detail(request, pk):
     except Order.report.RelatedObjectDoesNotExist:
         report = None
 
-    return render(request, 'order_detail.html', {'order': order, 'report': report})
+    report_form = WalkReportForm()
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        if action == 'submit_report' and is_sitter and report is None:
+            report_form = WalkReportForm(request.POST, request.FILES)
+            if report_form.is_valid():
+                new_report = report_form.save(commit=False)
+                new_report.order = order
+                try:
+                    new_report.full_clean()
+                    new_report.save()
+                    order.status = Order.Status.COMPLETED
+                    order.save(update_fields=['status'])
+                    messages.success(request, 'Отчёт о прогулке загружен, заказ переведён в статус «Завершён».')
+                    return redirect('order_detail', pk=order.pk)
+                except ValidationError as exc:
+                    for err in exc.messages:
+                        messages.error(request, err)
+
+    return render(request, 'order_detail.html', {
+        'order': order,
+        'report': report,
+        'is_owner': is_owner,
+        'is_sitter': is_sitter,
+        'report_form': report_form,
+    })
 
 
 @login_required

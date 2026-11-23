@@ -33,6 +33,33 @@
                 </ul>
             </article>
 
+            {% if is_sitter and not report %}
+                <section class="card-box" style="margin-top: 16px;">
+                    <h2>Заполнить отчёт о прогулке (WalkReport)</h2>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="submit_report">
+                        {{ report_form.as_p }}
+                        <button type="submit" class="btn btn-primary">Отправить отчёт о прогулке</button>
+                    </form>
+                </section>
+            {% endif %}
+
+            {% if report %}
+                <section class="card-box" style="margin-top: 16px;">
+                    <h2>Отчёт о прогулке</h2>
+                    <p><strong>Фактическое время:</strong> {{ report.actual_start|date:"d.m.Y H:i" }} – {{ report.actual_end|date:"H:i" }}</p>
+                    <p><strong>Маршрут:</strong> {{ report.route }}</p>
+                    <p><strong>Покормлен:</strong> {% if report.is_fed %}Да{% else %}Нет{% endif %} &bull; <strong>Лапы помыты:</strong> {% if report.paws_washed %}Да{% else %}Нет{% endif %}</p>
+                    {% if report.sitter_comment %}          
+                        <p><strong>Комментарий ситтера:</strong> {{ report.sitter_comment }}</p>
+                    {% endif %}
+                    {% if report.photo %}
+                        <p><img src="{{ report.photo.url }}" alt="Фото с прогулки" style="max-width: 320px; border-radius: 8px;"></p>
+                    {% endif %}
+                </section>
+            {% endif %}
+
             <article class="card-box">
                 <h2 class="block-subtitle">Отчёт догситтера о прогулке</h2>
                 {% if report %}

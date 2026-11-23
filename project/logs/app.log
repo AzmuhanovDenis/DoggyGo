@@ -46,3 +46,29 @@
 2026-11-23 19:53:00,761 [INFO] log: "GET /admin/jsi18n/ HTTP/1.1" 200 13471
 2026-11-23 19:53:00,784 [INFO] log: "GET /static/admin/js/change_form.js HTTP/1.1" 200 677
 2026-11-23 19:53:05,439 [INFO] log: "GET / HTTP/1.1" 200 6545
+2026-11-23 20:03:03,022 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:03:05,899 [INFO] log: "GET /logout/ HTTP/1.1" 302 0
+2026-11-23 20:03:05,959 [INFO] log: "GET / HTTP/1.1" 200 6625
+2026-11-23 20:03:07,330 [INFO] log: "GET /login/ HTTP/1.1" 200 3753
+2026-11-23 20:03:16,642 [INFO] log: "POST /login/ HTTP/1.1" 302 0
+2026-11-23 20:03:16,656 [INFO] log: "GET / HTTP/1.1" 200 6381
+2026-11-23 20:03:59,710 [INFO] log: "GET / HTTP/1.1" 200 6251
+2026-11-23 20:04:07,117 [INFO] log: "GET /profile/ HTTP/1.1" 200 8740
+2026-11-23 20:04:46,914 [INFO] log: "POST /profile/ HTTP/1.1" 302 0
+2026-11-23 20:04:46,942 [INFO] log: "GET /profile/ HTTP/1.1" 200 9293
+2026-11-23 20:05:10,516 [INFO] log: "GET /profile/orders/4/ HTTP/1.1" 200 6381
+2026-11-23 20:06:04,862 [INFO] log: "POST /profile/orders/4/ HTTP/1.1" 302 0
+2026-11-23 20:06:04,879 [INFO] log: "GET /profile/orders/4/ HTTP/1.1" 200 6153
+2026-11-23 20:06:04,892 [WARNING] log: Not Found: /media/reports/Walk1.jpg
+2026-11-23 20:06:04,893 [WARNING] log: "GET /media/reports/Walk1.jpg HTTP/1.1" 404 179
+2026-11-23 20:06:05,116 [WARNING] log: Not Found: /media/reports/Walk1.jpg
+2026-11-23 20:06:05,116 [WARNING] log: "GET /media/reports/Walk1.jpg HTTP/1.1" 404 179
+2026-11-23 20:06:23,370 [INFO] log: "GET /profile/orders/4/ HTTP/1.1" 200 5845
+2026-11-23 20:06:23,388 [WARNING] log: Not Found: /media/reports/Walk1.jpg
+2026-11-23 20:06:23,390 [WARNING] log: "GET /media/reports/Walk1.jpg HTTP/1.1" 404 179
+2026-11-23 20:06:23,392 [INFO] log: "GET /static/css/style.css HTTP/1.1" 200 20965
+2026-11-23 20:06:23,430 [INFO] log: "GET /static/js/main.js HTTP/1.1" 200 10822
+2026-11-23 20:06:23,607 [WARNING] log: Not Found: /media/reports/Walk1.jpg
+2026-11-23 20:06:23,607 [WARNING] log: "GET /media/reports/Walk1.jpg HTTP/1.1" 404 179
+2026-11-23 20:06:23,620 [WARNING] log: Not Found: /favicon.ico
+2026-11-23 20:06:23,621 [WARNING] log: "GET /favicon.ico HTTP/1.1" 404 179

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Кабинет догситтера — DoggyGo{% endblock %}
+
+{% block content %}
+<section class="container">
+    <h1>Кабинет догситтера: {{ sitter }}</h1>
+    <p>
+        <strong>Статус анкеты:</strong> {{ sitter.get_verification_status_display }} &bull;
+        <strong>Ставка выгула:</strong> {{ sitter.walk_hour_rate }} &#8381;/ч &bull;
+        <strong>Макс. вес собаки:</strong> {{ sitter.max_weight_kg }} кг
+    </p>
+
+    <div class="card-box" style="margin-top: 16px;">
+        <h2>Добавить свободный слот в расписание</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ slot_form.as_p }}
+            <button type="submit" class="btn btn-primary">Создать слот</button>
+        </form>
+    </div>
+
+    <div class="card-box" style="margin-top: 16px;">
+        <h2>Мои временные слоты</h2>
+        {% if slots %}
+            <ul>
+                {% for slot in slots %}
+                    <li style="margin-bottom: 6px;">
+                        {{ slot.start_at|date:"d.m.Y H:i" }} – {{ slot.end_at|date:"H:i" }}
+                        ({{ slot.get_service_type_display }}) —
+                        <strong>
+                            {% if slot.status == 'free' %}Свободен{% elif slot.status == 'booked' %}Забронирован{% else %}Заблокирован{% endif %}
+                        </strong>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Слоты расписания пока не добавлены.</p>
+        {% endif %}
+    </div>
+
+    <div class="card-box" style="margin-top: 16px;">
+        <h2>Заказы на исполнение (заполнение WalkReport)</h2>
+        {% if orders %}
+            <ul>
+                {% for order in orders %}
+                    <li style="margin-bottom: 8px;">
+                        <a href="{% url 'order_detail' order.pk %}">
+                            Заказ №{{ order.pk }} — питомец {{ order.dog.name }} ({{ order.slot.start_at|date:"d.m.Y H:i" }})
+                        </a>
+                        — статус: <strong>{{ order.get_status_display }}</strong>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Активных заказов пока нет.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

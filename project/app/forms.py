@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import Dog, User, Order
+from .models import Dog, User, Order, Slot, WalkReport
 
 
 class DogForm(forms.ModelForm):
@@ -124,3 +124,34 @@ class RegisterForm(forms.ModelForm):
         if p1 and p2 and p1 != p2:
             self.add_error('password_confirm', 'Пароли не совпадают.')
         return cleaned_data
+
+
+class SlotForm(forms.ModelForm):
+    class Meta:
+        model = Slot
+        fields = ['start_at', 'end_at', 'service_type']
+        widgets = {
+            'start_at': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
+            'end_at': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
+            'service_type': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
+class WalkReportForm(forms.ModelForm):
+    class Meta:
+        model = WalkReport
+        fields = ['actual_start', 'actual_end', 'route', 'is_fed', 'paws_washed', 'photo', 'sitter_comment']
+        widgets = {
+            'actual_start': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
+            'actual_end': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
+            'route': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 2,
+                'placeholder': 'Укажите координаты или описание маршрута прогулки',
+            }),
+            'sitter_comment': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
+            'photo': forms.ClearableFileInput(attrs={
+                'class': 'form-control',
+                'accept': 'image/jpeg,image/png,image/webp',
+            }),
+        }

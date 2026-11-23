@@ -8,6 +8,7 @@ urlpatterns = [
     path('sitters/', views.sitter_catalog, name='catalog'),
     path('sitters/api/search/', views.sitter_search_api, name='sitter_search_api'),
     path('sitters/<int:pk>/', views.sitter_detail, name='sitter_detail'),
+    path('profile/', views.profile_dashboard, name='profile_dashboard'),
     path('profile/dogs/', views.my_dogs, name='my_dogs'),
     path('profile/dogs/<int:pk>/edit/', views.edit_dog, name='edit_dog'),
     path('profile/dogs/<int:pk>/delete/', views.delete_dog, name='delete_dog'),

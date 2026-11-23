@@ -12,7 +12,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from .forms import BookingForm, DogForm, RegisterForm, SlotForm, WalkReportForm
-from .models import Area, Behavior, Dog, Order, Owner, ServiceType, Sitter, Slot
+from .models import Area, Behavior, Dog, Order, Owner, ServiceType, Sitter, Slot, User
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 import logging
@@ -362,7 +362,10 @@ def order_receipt(request, pk):
     return render(request, 'order_receipt.html', {'order': order})
 
 
+@login_required
 def analytics(request):
+    if not (request.user.is_staff or request.user.role in (User.Role.CURATOR, User.Role.ADMIN)):
+        raise PermissionDenied('Раздел аналитики доступен только куратору и администратору.')
     orders_qs = Order.objects.exclude(status=Order.Status.CANCELLED)
 
     date_from = request.GET.get('date_from', '').strip()
@@ -433,6 +436,8 @@ def analytics(request):
 
 
 def analytics_export_csv(request):
+    if not (request.user.is_staff or request.user.role in (User.Role.CURATOR, User.Role.ADMIN)):
+        raise PermissionDenied('Экспорт аналитики доступен только куратору и администратору.')
     logger.info('Начат экспорт аналитики в CSV (пользователь=%s)', request.user)
     response = HttpResponse(content_type='text/csv; charset=utf-8')
     response['Content-Disposition'] = 'attachment; filename="doggygo_analytics.csv"'

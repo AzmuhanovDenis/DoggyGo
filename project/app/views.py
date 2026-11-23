@@ -11,8 +11,8 @@ from django.db.models import Avg, Count, Q, Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
-from .forms import BookingForm, DogForm, RegisterForm, SlotForm, WalkReportForm
-from .models import Area, Behavior, Dog, Order, Owner, ServiceType, Sitter, Slot, User, SitterBehavior
+from .forms import BookingForm, DogForm, RegisterForm, SlotForm, WalkReportForm, ReviewForm
+from .models import Area, Behavior, Dog, Order, Owner, ServiceType, Sitter, Slot, User, SitterBehavior, Review
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 import logging
@@ -387,6 +387,11 @@ def order_detail(request, pk):
     if not (is_owner or is_sitter or is_staff):
         raise PermissionDenied('Нет доступа к чужому заказу.')
 
+    report = getattr(order, 'report', None)
+    review = Review.objects.filter(order=order).first()
+    report_form = WalkReportForm()
+    review_form = ReviewForm()
+
     try:
         report = order.report
     except Order.report.RelatedObjectDoesNotExist:
@@ -401,6 +406,20 @@ def order_detail(request, pk):
             order.save(update_fields=['status'])
             messages.success(request, 'Заказ отменён, временной слот снова свободен для бронирования.')
             return redirect('order_detail', pk=order.pk)
+        if action == 'submit_review' and is_owner and order.status == Order.Status.COMPLETED and review is None:
+            review_form = ReviewForm(request.POST)
+            if review_form.is_valid():
+                new_review = review_form.save(commit=False)
+                new_review.order = order
+                try:
+                    new_review.full_clean()
+                    new_review.save()
+                    messages.success(request, 'Спасибо! Ваш отзыв опубликован, рейтинг догситтера обновлён.')
+                    return redirect('order_detail', pk=order.pk)
+                except ValidationError as exc:
+                    for err in exc.messages:
+                        messages.error(request, err)
+
         if action == 'submit_report' and is_sitter and report is None:
             report_form = WalkReportForm(request.POST, request.FILES)
             if report_form.is_valid():
@@ -420,9 +439,11 @@ def order_detail(request, pk):
     return render(request, 'order_detail.html', {
         'order': order,
         'report': report,
+        'review': review,
         'is_owner': is_owner,
         'is_sitter': is_sitter,
         'report_form': report_form,
+        'review_form': review_form,
     })
 
 

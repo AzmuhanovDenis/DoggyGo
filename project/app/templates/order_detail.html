@@ -16,7 +16,7 @@
             <a href="{% url 'order_receipt' order.pk %}" class="btn btn-outline" target="_blank">
                 Печатная форма / Квитанция
             </a>
-            
+
             {% if is_owner and order.status == 'pending' or is_owner and order.status == 'confirmed' %}
                 <form method="post" style="display: inline-block; margin-left: 8px;" onsubmit="return confirm('Вы уверены, что хотите отменить этот заказ?');">
                 {% csrf_token %}
@@ -98,6 +98,28 @@
                     <p class="helper-note">Отчёт о прогулке появится здесь после завершения выгула догситтером.</p>
                 {% endif %}
             </article>
+            {% if order.status == 'completed' %}
+                <section class="card-box" style="margin-top: 16px;">
+                    <h2>Отзыв о прогулке</h2>
+
+                    {% if review %}
+                        <p><strong>Оценка:</strong> {{ review.rating }} из 5 &#9733;</p>
+                        {% if review.comment %}
+                            <p><strong>Комментарий:</strong> {{ review.comment }}</p>
+                        {% endif %}
+                        <p style="color: #6b7280; font-size: 0.9em;">Опубликовано: {{ review.published_at|date:"d.m.Y H:i" }}</p>
+                    {% elif is_owner %}
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="submit_review">
+                            {{ review_form.as_p }}
+                            <button type="submit" class="btn btn-primary">Опубликовать отзыв</button>
+                        </form>
+                    {% else %}
+                        <p>Владелец ещё не оставил отзыв по этому заказу.</p>
+                    {% endif %}
+                </section>
+            {% endif %}
         </div>
     </div>
 </section>

@@ -513,3 +513,110 @@ django.core.exceptions.PermissionDenied: Раздел аналитики дос�
 2026-11-23 20:45:36,375 [INFO] log: "GET /sitters/?q=&area=&weight=35&sort=rating HTTP/1.1" 200 8976
 2026-11-23 20:46:44,640 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
 2026-11-23 20:46:46,365 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:48:40,387 [INFO] log: "GET /sitters/ HTTP/1.1" 200 48657
+2026-11-23 20:48:52,882 [INFO] log: "GET /sitters/api/search/?q=&area=4&weight=&sort=rating HTTP/1.1" 200 8587
+2026-11-23 20:49:04,588 [INFO] log: "GET /sitters/ HTTP/1.1" 200 48657
+2026-11-23 20:49:04,604 [INFO] log: "GET /static/css/style.css HTTP/1.1" 200 20965
+2026-11-23 20:49:04,604 [INFO] log: "GET /static/js/main.js HTTP/1.1" 200 12272
+2026-11-23 20:49:04,784 [WARNING] log: Not Found: /favicon.ico
+2026-11-23 20:49:04,784 [WARNING] log: "GET /favicon.ico HTTP/1.1" 404 179
+2026-11-23 20:49:07,165 [INFO] log: "GET /sitters/api/search/?q=&area=4&weight=&sort=rating HTTP/1.1" 200 8587
+2026-11-23 20:49:12,680 [INFO] log: "GET /sitters/?q=&area=4&weight=&sort=rating&page=2 HTTP/1.1" 200 15127
+2026-11-23 20:49:12,692 [INFO] log: "GET /static/js/main.js HTTP/1.1" 304 0
+2026-11-23 20:49:24,928 [INFO] log: "GET /sitters/api/search/?q=&area=&weight=&sort=rating HTTP/1.1" 200 8587
+2026-11-23 20:49:26,164 [INFO] log: "GET /sitters/api/search/?q=&area=4&weight=&sort=rating HTTP/1.1" 200 8587
+2026-11-23 20:49:28,344 [INFO] log: "GET /sitters/?q=&area=4&weight=&sort=rating HTTP/1.1" 200 48707
+2026-11-23 20:49:28,361 [INFO] log: "GET /static/js/main.js HTTP/1.1" 200 12272
+2026-11-23 20:49:28,361 [INFO] log: "GET /static/css/style.css HTTP/1.1" 200 20965
+2026-11-23 20:49:28,540 [WARNING] log: Not Found: /favicon.ico
+2026-11-23 20:49:28,541 [WARNING] log: "GET /favicon.ico HTTP/1.1" 404 179
+2026-11-23 20:49:35,855 [INFO] log: "GET /sitters/api/search/?q=&area=&weight=&sort=rating HTTP/1.1" 200 8587
+2026-11-23 20:49:36,813 [INFO] log: "GET /sitters/api/search/?q=&area=4&weight=&sort=rating HTTP/1.1" 200 8587
+2026-11-23 20:49:41,111 [INFO] log: "GET /sitters/api/search/?q=&area=&weight=&sort=rating HTTP/1.1" 200 8587
+2026-11-23 20:50:33,505 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:50:35,699 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:50:58,814 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:51:00,826 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:51:10,370 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\forms.py changed, reloading.
+2026-11-23 20:51:12,095 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:51:15,706 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\forms.py changed, reloading.
+2026-11-23 20:51:17,569 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:51:45,222 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\forms.py changed, reloading.
+2026-11-23 20:51:47,106 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:52:04,905 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:52:06,770 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:52:42,765 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:52:44,531 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:52:49,709 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:52:51,437 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:52:54,379 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:52:56,080 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:52:58,904 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:53:00,594 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:53:05,809 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:53:07,596 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:53:35,042 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:53:37,013 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:53:41,059 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:53:42,627 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:54:06,639 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:54:08,382 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:54:14,284 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:54:16,099 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:55:37,326 [INFO] log: "GET / HTTP/1.1" 200 6456
+2026-11-23 20:55:37,339 [INFO] log: "GET /static/js/main.js HTTP/1.1" 304 0
+2026-11-23 20:55:38,964 [INFO] log: "GET / HTTP/1.1" 200 6456
+2026-11-23 20:55:38,981 [INFO] log: "GET /static/css/style.css HTTP/1.1" 200 20965
+2026-11-23 20:55:38,981 [INFO] log: "GET /static/js/main.js HTTP/1.1" 200 12272
+2026-11-23 20:55:39,156 [WARNING] log: Not Found: /favicon.ico
+2026-11-23 20:55:39,157 [WARNING] log: "GET /favicon.ico HTTP/1.1" 404 179
+2026-11-23 20:55:46,595 [ERROR] log: Internal Server Error: /profile/orders/6/
+Traceback (most recent call last):
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\base.py", line 206, in _get_response
+    self.check_response(response, callback)
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\base.py", line 334, in check_response
+    raise ValueError(
+ValueError: The view app.views.order_detail didn't return an HttpResponse object. It returned None instead.
+2026-11-23 20:55:46,599 [ERROR] log: "GET /profile/orders/6/ HTTP/1.1" 500 145
+2026-11-23 20:55:52,843 [INFO] log: "GET /profile/orders/ HTTP/1.1" 200 8058
+2026-11-23 20:55:54,775 [ERROR] log: Internal Server Error: /profile/orders/6/
+Traceback (most recent call last):
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\base.py", line 206, in _get_response
+    self.check_response(response, callback)
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\base.py", line 334, in check_response
+    raise ValueError(
+ValueError: The view app.views.order_detail didn't return an HttpResponse object. It returned None instead.
+2026-11-23 20:55:54,776 [ERROR] log: "GET /profile/orders/6/ HTTP/1.1" 500 145
+2026-11-23 20:55:57,510 [WARNING] log: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2026-11-23 20:55:57,511 [WARNING] log: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 179
+2026-11-23 20:56:58,247 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:57:00,387 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:57:43,059 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:57:44,941 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:57:48,546 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:57:50,373 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:58:25,385 [INFO] log: "GET /profile/orders/6/ HTTP/1.1" 200 4460
+2026-11-23 20:58:25,402 [INFO] log: "GET /static/js/main.js HTTP/1.1" 304 0
+2026-11-23 20:58:25,429 [WARNING] log: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+2026-11-23 20:58:25,430 [WARNING] log: "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 179
+2026-11-23 20:58:50,462 [INFO] log: "GET /profile/orders/6/ HTTP/1.1" 200 4460
+2026-11-23 20:58:50,479 [INFO] log: "GET /static/css/style.css HTTP/1.1" 200 20965
+2026-11-23 20:58:50,480 [INFO] log: "GET /static/js/main.js HTTP/1.1" 200 12272
+2026-11-23 20:58:50,642 [WARNING] log: Not Found: /favicon.ico
+2026-11-23 20:58:50,643 [WARNING] log: "GET /favicon.ico HTTP/1.1" 404 179
+2026-11-23 20:58:54,351 [INFO] log: "GET /profile/orders/ HTTP/1.1" 200 8058
+2026-11-23 20:58:57,511 [INFO] log: "GET /profile/orders/4/ HTTP/1.1" 200 6643
+2026-11-23 20:58:57,521 [WARNING] log: Not Found: /media/reports/Walk1.jpg
+2026-11-23 20:58:57,522 [WARNING] log: "GET /media/reports/Walk1.jpg HTTP/1.1" 404 179
+2026-11-23 20:58:57,687 [WARNING] log: Not Found: /media/reports/Walk1.jpg
+2026-11-23 20:58:57,688 [WARNING] log: "GET /media/reports/Walk1.jpg HTTP/1.1" 404 179
+2026-11-23 20:59:08,313 [INFO] log: "GET / HTTP/1.1" 200 6456
+2026-11-23 20:59:09,685 [INFO] log: "GET /sitters/ HTTP/1.1" 200 48657
+2026-11-23 20:59:09,975 [INFO] log: "GET /profile/orders/ HTTP/1.1" 200 8058
+2026-11-23 20:59:13,052 [INFO] log: "GET /profile/orders/6/ HTTP/1.1" 200 4460

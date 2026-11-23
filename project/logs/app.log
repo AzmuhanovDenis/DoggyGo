@@ -434,3 +434,45 @@ django.core.exceptions.FieldError: Unsupported lookup 'order' for BigAutoField o
 2026-11-23 20:28:56,687 [INFO] log: "GET / HTTP/1.1" 200 6545
 2026-11-23 20:29:54,336 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
 2026-11-23 20:29:55,996 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:31:06,052 [INFO] log: "GET / HTTP/1.1" 200 6456
+2026-11-23 20:31:16,635 [INFO] log: "GET /admin/ HTTP/1.1" 302 0
+2026-11-23 20:31:17,020 [INFO] log: "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4092
+2026-11-23 20:31:17,047 [INFO] log: "GET /static/admin/css/login.css HTTP/1.1" 304 0
+2026-11-23 20:31:18,429 [WARNING] log: Forbidden (Permission denied): /analytics/
+Traceback (most recent call last):
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\core\handlers\base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\venv\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py", line 368, in analytics
+    raise PermissionDenied('Раздел аналитики доступен только куратору и администратору.')
+django.core.exceptions.PermissionDenied: Раздел аналитики доступен только куратору и администратору.
+2026-11-23 20:31:18,436 [WARNING] log: "GET /analytics/ HTTP/1.1" 403 135
+2026-11-23 20:31:27,464 [INFO] log: "GET /logout/ HTTP/1.1" 302 0
+2026-11-23 20:31:27,477 [INFO] log: "GET / HTTP/1.1" 200 6536
+2026-11-23 20:31:28,039 [INFO] log: "GET /login/ HTTP/1.1" 200 3664
+2026-11-23 20:31:34,766 [INFO] log: "POST /login/ HTTP/1.1" 302 0
+2026-11-23 20:31:34,780 [INFO] log: "GET / HTTP/1.1" 200 6709
+2026-11-23 20:31:36,393 [INFO] log: "GET /analytics/ HTTP/1.1" 200 6563
+2026-11-23 20:31:37,877 [INFO] log: "GET / HTTP/1.1" 200 6456
+2026-11-23 20:31:43,938 [INFO] log: "GET /analytics/ HTTP/1.1" 200 6563
+2026-11-23 20:33:49,493 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:33:51,176 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:34:01,412 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:34:03,152 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:35:17,226 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:35:19,075 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:35:22,005 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:35:23,651 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:36:46,971 [INFO] log: "GET /logout/ HTTP/1.1" 302 0
+2026-11-23 20:36:47,010 [INFO] log: "GET / HTTP/1.1" 200 6536
+2026-11-23 20:36:52,297 [INFO] log: "GET /login/ HTTP/1.1" 200 3664
+2026-11-23 20:36:59,439 [INFO] log: "POST /login/ HTTP/1.1" 302 0
+2026-11-23 20:36:59,453 [INFO] log: "GET / HTTP/1.1" 200 6700
+2026-11-23 20:37:03,467 [INFO] log: "GET /sitters/ HTTP/1.1" 200 48657
+2026-11-23 20:37:05,066 [INFO] log: "GET /sitters/1/ HTTP/1.1" 200 7630

@@ -57,7 +57,7 @@
                             type="button"
                             class="slot-btn"
                             data-slot-id="{{ slot.id }}"
-                            data-slot-price="{% if slot.service_type == 'boarding' and sitter.boarding_day_rate %}{{ sitter.boarding_day_rate|floatformat:0 }}{% else %}{{ sitter.walk_hour_rate|floatformat:0 }}{% endif %}"
+                            data-slot-price="{{ slot.calculated_price }}"
                         >
                             {{ slot.start_at|date:"d.m" }} &bull; {{ slot.start_at|date:"H:i" }} – {{ slot.end_at|date:"H:i" }}
                         </button>

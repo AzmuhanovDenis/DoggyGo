@@ -143,8 +143,16 @@ def sitter_detail(request, pk):
                 area_coeff = owner.area.distance_coefficient
             else:
                 area_coeff = Decimal('1.00')
-            base_rate = sitter.boarding_day_rate if slot.service_type == ServiceType.BOARDING else sitter.walk_hour_rate
-            total_price = (base_rate * area_coeff).quantize(Decimal('0.01'))
+            
+            duration_seconds = Decimal(str((slot.end_at - slot.start_at).total_seconds()))
+            if slot.service_type == ServiceType.BOARDING:
+                units = max(Decimal('1.00'), (duration_seconds / Decimal('86400')).quantize(Decimal('0.01')))
+                base_rate = sitter.boarding_day_rate
+            else:
+                units = (duration_seconds / Decimal('3600')).quantize(Decimal('0.01'))
+                base_rate = sitter.walk_hour_rate
+
+            total_price = (base_rate * units * area_coeff).quantize(Decimal('0.01'))
 
             try:
                 with transaction.atomic():
@@ -170,6 +178,21 @@ def sitter_detail(request, pk):
         'form': form,
         'owner': owner,
     }
+
+    area_coeff = (
+        owner.area.distance_coefficient
+        if owner and owner.area and owner.area.distance_coefficient and owner.area.distance_coefficient > 0
+        else Decimal('1.00')
+    )
+    for slot in slots:
+        dur_sec = Decimal(str((slot.end_at - slot.start_at).total_seconds()))
+        if slot.service_type == ServiceType.BOARDING and sitter.boarding_day_rate:
+            slot_units = max(Decimal('1.00'), (dur_sec / Decimal('86400')).quantize(Decimal('0.01')))
+            slot.calculated_price = (sitter.boarding_day_rate * slot_units * area_coeff).quantize(Decimal('0.01'))
+        else:
+            slot_units = (dur_sec / Decimal('3600')).quantize(Decimal('0.01'))
+            slot.calculated_price = (sitter.walk_hour_rate * slot_units * area_coeff).quantize(Decimal('0.01'))
+
     return render(request, 'sitter_detail.html', context)
 
 

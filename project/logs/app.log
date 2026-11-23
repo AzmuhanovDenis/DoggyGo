@@ -476,3 +476,26 @@ django.core.exceptions.PermissionDenied: Раздел аналитики дос�
 2026-11-23 20:36:59,453 [INFO] log: "GET / HTTP/1.1" 200 6700
 2026-11-23 20:37:03,467 [INFO] log: "GET /sitters/ HTTP/1.1" 200 48657
 2026-11-23 20:37:05,066 [INFO] log: "GET /sitters/1/ HTTP/1.1" 200 7630
+2026-11-23 20:37:34,692 [INFO] log: "GET /sitters/1/ HTTP/1.1" 200 7630
+2026-11-23 20:37:37,588 [INFO] log: "GET /sitters/1/ HTTP/1.1" 200 7614
+2026-11-23 20:38:52,242 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:38:53,979 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:40:06,528 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:40:08,183 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:40:12,686 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:40:14,489 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:40:16,908 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:40:18,525 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:41:42,294 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:41:44,335 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:42:24,103 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:42:25,797 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:42:36,133 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:42:37,782 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:43:46,866 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:43:48,692 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:44:04,731 [INFO] autoreload: C:\Users\MSI\OneDrive\Рабочий стол\DoggyGo\project\app\views.py changed, reloading.
+2026-11-23 20:44:06,372 [INFO] autoreload: Watching for file changes with StatReloader
+2026-11-23 20:44:34,429 [INFO] log: "GET /admin/app/sitter/ HTTP/1.1" 200 31336
+2026-11-23 20:44:34,453 [INFO] log: "GET /static/admin/img/search.svg HTTP/1.1" 200 607
+2026-11-23 20:44:34,459 [INFO] log: "GET /admin/jsi18n/ HTTP/1.1" 200 13471

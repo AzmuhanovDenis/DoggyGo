@@ -12,7 +12,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from .forms import BookingForm, DogForm, RegisterForm, SlotForm, WalkReportForm
-from .models import Area, Behavior, Dog, Order, Owner, ServiceType, Sitter, Slot, User
+from .models import Area, Behavior, Dog, Order, Owner, ServiceType, Sitter, Slot, User, SitterBehavior
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 import logging
@@ -78,12 +78,10 @@ def sitter_catalog(request):
             sitter.weight_incompatible = True
 
 
+    sitters_qs, q, area_id, weight_raw, user_weight, selected_behaviors, sort = _filter_sitters(request)
     sitters_list = list(sitters_qs)
     for sitter in sitters_list:
         sitter.weight_incompatible = False
-        if user_weight is not None:
-            if user_weight > sitter.max_weight_kg or (user_weight > 25 and not sitter.accepts_large_dogs):
-                sitter.weight_incompatible = True
 
     paginator = Paginator(sitters_list, 20)
     page_number = request.GET.get('page', 1)
@@ -101,11 +99,68 @@ def sitter_catalog(request):
         'selected_area': area_id,
         'weight': weight_raw,
         'user_weight': user_weight,
-        'selected_behaviors': [int(b) for b in selected_behaviors if b.isdigit()],
+        'selected_behaviors': selected_behaviors,
         'sort': sort,
         'query_string': query_params.urlencode(),
     }
     return render(request, 'catalog.html', context)
+
+
+def _filter_sitters(request):
+    sitters_qs = (
+        Sitter.objects.filter(verification_status=Sitter.Verification.APPROVED, user__is_active=True)
+        .select_related('user')
+        .prefetch_related('areas', 'behaviors')
+        .annotate(
+            avg_rating=Avg('slots__orders__review__rating'),
+            reviews_count=Count('slots__orders__review', distinct=True),
+        )
+    )
+
+    q = request.GET.get('q', '').strip()
+    area_id = request.GET.get('area', '').strip()
+    weight_raw = request.GET.get('weight', '').strip()
+    selected_behaviors = [int(b) for b in request.GET.getlist('behaviors') if b.isdigit()]
+    service_type = request.GET.get('service_type', '').strip()
+    sort = request.GET.get('sort', 'rating')
+
+    if q:
+        sitters_qs = sitters_qs.filter(
+            Q(user__first_name__icontains=q)
+            | Q(user__last_name__icontains=q)
+            | Q(user__username__icontains=q)
+        )
+
+    if area_id.isdigit():
+        sitters_qs = sitters_qs.filter(areas__id=int(area_id))
+
+    if service_type == ServiceType.BOARDING:
+        sitters_qs = sitters_qs.filter(accepts_boarding=True)
+
+    # BUG-07: парсим вес и скрываем несовместимых ситтеров
+    user_weight = None
+    if weight_raw:
+        try:
+            user_weight = Decimal(weight_raw.replace(',', '.'))
+            if user_weight > 0:
+                sitters_qs = sitters_qs.filter(max_weight_kg__gte=user_weight)
+                if user_weight > 25:
+                    sitters_qs = sitters_qs.filter(accepts_large_dogs=True)
+        except Exception:
+            user_weight = None
+
+    # BUG-07: фильтрация по выбранным компетенциям поведения (через таблицу связи SitterBehavior)
+    for b_id in selected_behaviors:
+        sitters_qs = sitters_qs.filter(behavior_links__behavior_id=b_id)
+
+    sort_map = {
+        'rating': ['-avg_rating', '-experience_years', 'pk'],
+        'price_asc': ['walk_hour_rate', '-avg_rating', 'pk'],
+        'price_desc': ['-walk_hour_rate', '-avg_rating', 'pk'],
+        'experience': ['-experience_years', '-avg_rating', 'pk'],
+    }
+    sitters_qs = sitters_qs.distinct().order_by(*sort_map.get(sort, sort_map['rating']))
+    return sitters_qs, q, area_id, weight_raw, user_weight, selected_behaviors, sort
 
 
 def sitter_detail(request, pk):
@@ -572,11 +627,12 @@ def sitter_search_api(request):
         except Exception:
             user_weight = None
 
+    sitters_qs, _, _, _, _, _, _ = _filter_sitters(request)
     paginator = Paginator(sitters_qs, 20)
     page_obj = paginator.get_page(request.GET.get('page', 1))
     
     results = []
-    for sitter in sitters_qs[:20]:
+    for sitter in page_obj:
         weight_incompatible = False
         if user_weight is not None:
             if user_weight > sitter.max_weight_kg or (user_weight > 25 and not sitter.accepts_large_dogs):

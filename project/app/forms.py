@@ -1,6 +1,28 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from .models import Dog, User, Order, Slot, WalkReport, Review
+from PIL import Image
+from django.contrib.auth.password_validation import validate_password
+
+
+def validate_image_file(file_obj):
+    if not file_obj or not hasattr(file_obj, 'size'):
+        return file_obj
+    if file_obj.size > 10 * 1024 * 1024:
+        raise ValidationError('Размер изображения не должен превышать 10 МБ.')
+    valid_types = ('image/jpeg', 'image/png', 'image/webp')
+    content_type = getattr(file_obj, 'content_type', '')
+    if content_type not in valid_types:
+        raise ValidationError('Допускаются только изображения формата JPG, PNG или WebP.')
+    try:
+        img = Image.open(file_obj)
+        img.verify()
+        if img.format not in ('JPEG', 'PNG', 'WEBP'):
+            raise ValidationError('Файл не является корректным изображением JPG, PNG или WebP.')
+        file_obj.seek(0)
+    except Exception:
+        raise ValidationError('Загруженный файл повреждён или не является изображением.')
+    return file_obj
 
 
 class DogForm(forms.ModelForm):
@@ -53,15 +75,7 @@ class DogForm(forms.ModelForm):
         }
 
     def clean_photo(self):
-        photo = self.cleaned_data.get('photo')
-        if photo and hasattr(photo, 'size'):
-            if photo.size > 5 * 1024 * 1024:
-                raise ValidationError('Размер фотографии не должен превышать 5 МБ.')
-            valid_types = ('image/jpeg', 'image/png', 'image/webp')
-            content_type = getattr(photo, 'content_type', '')
-            if content_type and content_type not in valid_types:
-                raise ValidationError('Допускаются только изображения формата JPG, PNG или WebP.')
-        return photo
+        return validate_image_file(self.cleaned_data.get('photo'))
 
 
 class BookingForm(forms.Form):
@@ -123,6 +137,8 @@ class RegisterForm(forms.ModelForm):
         p2 = cleaned_data.get('password_confirm')
         if p1 and p2 and p1 != p2:
             self.add_error('password_confirm', 'Пароли не совпадают.')
+        if p1:
+            validate_password(p1)
         return cleaned_data
 
 
@@ -155,6 +171,9 @@ class WalkReportForm(forms.ModelForm):
                 'accept': 'image/jpeg,image/png,image/webp',
             }),
         }
+
+    def clean_photo(self):
+        return validate_image_file(self.cleaned_data.get('photo'))
 
 
 class ReviewForm(forms.ModelForm):

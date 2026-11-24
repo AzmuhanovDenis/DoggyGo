@@ -15,6 +15,7 @@ from .forms import BookingForm, DogForm, RegisterForm, SlotForm, WalkReportForm,
 from .models import Area, Behavior, Dog, Order, Owner, ServiceType, Sitter, Slot, User, SitterBehavior, Review
 from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
+from django.core.cache import cache
 import logging
 logger = logging.getLogger('app')
 
@@ -564,12 +565,24 @@ def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username', '').strip()
         password = request.POST.get('password', '')
+        ip = request.META.get('REMOTE_ADDR', 'unknown')
+        cache_key = f'login_attempts_{ip}_{username}'
+        attempts = cache.get(cache_key, 0)
+
+        if attempts >= 5:
+            logger.warning('Блокировка входа из-за превышения лимита попыток (логин="%s", IP=%s)', username, ip)
+            messages.error(request, 'Слишком много неудачных попыток входа. Попробуйте снова через 5 минут.')
+            return render(request, 'login.html', status=429)
+
         user = authenticate(request, username=username, password=password)
         if user is not None:
+            cache.delete(cache_key)
             login(request, user)
             messages.success(request, f'Добро пожаловать, {user}!')
             return redirect('index')
-        logger.warning('Неудачная попытка входа в систему с логином "%s"', username)
+
+        cache.set(cache_key, attempts + 1, timeout=300)
+        logger.warning('Неудачная попытка входа в систему с логином "%s" (попытка %s/5)', username, attempts + 1)
         messages.error(request, 'Неверный логин или пароль.')
     return render(request, 'login.html')
 

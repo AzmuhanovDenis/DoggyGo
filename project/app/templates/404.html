@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Страница не найдена (404) — ДоггиГо{% endblock %}
+
+{% block content %}
+<section style="max-width: 640px; margin: 64px auto; padding: 40px 32px; background: #FFFFFF; border-radius: 16px; border: 1px solid #E5E7EB; text-align: center;">
+    <div style="display: inline-block; padding: 6px 14px; background: #FFF3CD; color: #856404; border-radius: 999px; font-weight: 600; font-size: 14px; margin-bottom: 16px;">
+        Ошибка 404
+    </div>
+    <h1 style="font-size: 28px; font-weight: 700; color: #1A1D1F; margin: 0 0 12px;">
+        Похоже, эта страница убежала на прогулку
+    </h1>
+    <p style="font-size: 16px; line-height: 1.5; color: #525860; margin: 0 0 28px;">
+        Запрашиваемая анкета догситтера, карточка заказа или страница не существует. Возможно, ссылка устарела или в адресе допущена опечатка.
+    </p>
+    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <a href="{% url 'index' %}" style="padding: 12px 24px; background: #1B6B50; color: #FFFFFF; text-decoration: none; border-radius: 8px; font-weight: 600;">
+            На главную
+        </a>
+        <a href="{% url 'catalog' %}" style="padding: 12px 24px; background: #C85A17; color: #FFFFFF; text-decoration: none; border-radius: 8px; font-weight: 600;">
+            Поиск догситтеров
+        </a>
+    </div>
+</section>
+{% endblock %}

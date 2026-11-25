@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Внутренняя ошибка сервера (500) — ДоггиГо</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #F8F9FA;
+            color: #1A1D1F;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background: #FFFFFF;
+            border-bottom: 1px solid #E5E7EB;
+            padding: 16px 32px;
+            font-weight: 700;
+            font-size: 20px;
+            color: #1B6B50;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        .card {
+            max-width: 640px;
+            width: 100%;
+            padding: 40px 32px;
+            background: #FFFFFF;
+            border-radius: 16px;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+        }
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: #F8D7DA;
+            color: #B02A37;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        h1 { font-size: 28px; margin: 0 0 12px; }
+        p { font-size: 16px; line-height: 1.5; color: #525860; margin: 0 0 28px; }
+        .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn-primary {
+            padding: 12px 24px;
+            background: #1B6B50;
+            color: #FFFFFF;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        .btn-secondary {
+            padding: 12px 24px;
+            background: #E8F3EF;
+            color: #1B6B50;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header>ДоггиГо</header>
+    <main>
+        <div class="card">
+            <div class="badge">Ошибка 500</div>
+            <h1>На сервере произошёл технический сбой</h1>
+            <p>
+                Мы уже записали информацию об ошибке в журнал и работаем над её устранением. Попробуйте обновить страницу через минуту или вернитесь в каталог.
+            </p>
+            <div class="actions">
+                <a href="/" class="btn-primary">На главную</a>
+                <a href="/sitters/" class="btn-secondary">Каталог ситтеров</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

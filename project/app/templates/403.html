@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Доступ запрещён (403) — ДоггиГо{% endblock %}
+
+{% block content %}
+<section style="max-width: 640px; margin: 64px auto; padding: 40px 32px; background: #FFFFFF; border-radius: 16px; border: 1px solid #E5E7EB; text-align: center;">
+    <div style="display: inline-block; padding: 6px 14px; background: #F8D7DA; color: #B02A37; border-radius: 999px; font-weight: 600; font-size: 14px; margin-bottom: 16px;">
+        Ошибка 403
+    </div>
+    <h1 style="font-size: 28px; font-weight: 700; color: #1A1D1F; margin: 0 0 12px;">
+        У вас нет прав для просмотра этой страницы
+    </h1>
+    <p style="font-size: 16px; line-height: 1.5; color: #525860; margin: 0 0 28px;">
+        Возможно, вы пытаетесь открыть чужой заказ, карточку питомца другого владельца или раздел, доступный только кураторам сервиса. Попробуйте войти под нужной учётной записью.
+    </p>
+    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <a href="{% url 'index' %}" style="padding: 12px 24px; background: #1B6B50; color: #FFFFFF; text-decoration: none; border-radius: 8px; font-weight: 600;">
+            На главную
+        </a>
+        <a href="{% url 'catalog' %}" style="padding: 12px 24px; background: #E8F3EF; color: #1B6B50; text-decoration: none; border-radius: 8px; font-weight: 600;">
+            Перейти в каталог ситтеров
+        </a>
+    </div>
+</section>
+{% endblock %}
